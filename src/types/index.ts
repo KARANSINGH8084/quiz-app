@@ -17,6 +17,8 @@ export interface Question {
   options: string[];
   correctAnswer: number;
   category: string;
+  image?: string;
+  imageTitle?: string;
 }
 
 export interface Quiz {

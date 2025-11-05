@@ -81,6 +81,7 @@ export const QuizPage: React.FC<QuizPageProps> = ({ quiz, onComplete, onExit }) 
   };
 
   const currentQ = quiz.questions[currentQuestion];
+  const currentQImage = currentQ.image || null;
   const progress = ((currentQuestion + 1) / quiz.questions.length) * 100;
   const answeredCount = Object.keys(answers).length;
 
@@ -113,23 +114,27 @@ export const QuizPage: React.FC<QuizPageProps> = ({ quiz, onComplete, onExit }) 
 
         {/* Question Card */}
         <Card className="p-8 bg-white border-0 shadow-sm mb-6">
-          <div className="mb-6">
+          {currentQImage && (
+            <div className="mb-6">
+              <h4 className="text-lg mb-2 font-semibold">{currentQ.imageTitle}</h4>
+              <img src={`${currentQImage}`} alt={`Question ${currentQuestion + 1}`} className=" rounded-lg" />
+            </div>
+          )}
+          <div className="">
             <span className="text-muted-foreground mb-2 block">
               Question {currentQuestion + 1} of {quiz.questions.length}
             </span>
             <h3 className="text-2xl">{currentQ.question}</h3>
           </div>
-
           <div className="space-y-3">
             {currentQ.options.map((option, index) => (
               <button
                 key={index}
                 onClick={() => handleAnswerSelect(index)}
-                className={`w-full p-4 rounded-xl border-2 transition-all text-left flex items-center justify-between ${
-                  answers[currentQuestion] === index
-                    ? 'border-purple-500 bg-purple-50'
-                    : 'border-gray-200 bg-white hover:border-purple-300 hover:bg-purple-50/50'
-                }`}
+                className={`w-full p-4 rounded-xl border-2 transition-all text-left flex items-center justify-between ${answers[currentQuestion] === index
+                  ? 'border-purple-500 bg-purple-50'
+                  : 'border-gray-200 bg-white hover:border-purple-300 hover:bg-purple-50/50'
+                  }`}
               >
                 <span>{option}</span>
                 {answers[currentQuestion] === index && (
@@ -159,13 +164,12 @@ export const QuizPage: React.FC<QuizPageProps> = ({ quiz, onComplete, onExit }) 
               <button
                 key={index}
                 onClick={() => setCurrentQuestion(index)}
-                className={`w-10 h-10 rounded-lg transition-all ${
-                  index === currentQuestion
-                    ? 'bg-purple-500 text-white'
-                    : answers[index] !== undefined
+                className={`w-10 h-10 rounded-lg transition-all ${index === currentQuestion
+                  ? 'bg-purple-500 text-white'
+                  : answers[index] !== undefined
                     ? 'bg-green-100 text-green-700'
                     : 'bg-white text-gray-400 border border-gray-200'
-                }`}
+                  }`}
               >
                 {index + 1}
               </button>

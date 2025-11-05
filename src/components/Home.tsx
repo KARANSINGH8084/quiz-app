@@ -15,7 +15,7 @@ export const Home: React.FC<HomeProps> = ({ onStartQuiz, onViewHistory }) => {
   const { user, quizHistory } = useAuth();
 
   const recentQuizzes = quizHistory.slice(0, 3);
-  
+
   const getBadgeColor = (difficulty: string) => {
     switch (difficulty) {
       case 'easy': return 'bg-green-100 text-green-700 hover:bg-green-100';
@@ -65,7 +65,7 @@ export const Home: React.FC<HomeProps> = ({ onStartQuiz, onViewHistory }) => {
               <div>
                 <p className="text-muted-foreground mb-1">Best Score</p>
                 <p className="text-3xl">
-                  {quizHistory.length > 0 
+                  {quizHistory.length > 0
                     ? Math.max(...quizHistory.map(q => q.percentage))
                     : 0}%
                 </p>
@@ -135,15 +135,16 @@ export const Home: React.FC<HomeProps> = ({ onStartQuiz, onViewHistory }) => {
                 <div className="mb-4">
                   <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-blue-400 rounded-xl flex items-center justify-center mb-3">
                     <span className="text-white text-2xl">
-                      {quiz.category === 'General' && '🎯'}
-                      {quiz.category === 'Science' && '🔬'}
-                      {quiz.category === 'History' && '📚'}
-                      {quiz.category === 'Technology' && '💻'}
+                      {quiz.category === 'Anatomy' && '🫀'}
+                      {quiz.category === 'Medicine' && '💊'}
+                      {quiz.category === 'Biology' && '🧬'}
+                      {quiz.category === 'Nursing' && '🩺'}
+                      {!['Anatomy', 'Medicine', 'Biology', 'Nursing'].includes(quiz.category) && '❓'}
                     </span>
                   </div>
                   <h3 className="mb-2">{quiz.title}</h3>
                   <p className="text-sm text-muted-foreground mb-3">{quiz.category}</p>
-                  
+
                   <div className="flex items-center gap-2 mb-4">
                     <Badge className={getBadgeColor(quiz.difficulty)}>
                       {quiz.difficulty}
@@ -159,8 +160,8 @@ export const Home: React.FC<HomeProps> = ({ onStartQuiz, onViewHistory }) => {
                   </div>
                 </div>
 
-                <Button 
-                  onClick={() => onStartQuiz(quiz.id)} 
+                <Button
+                  onClick={() => onStartQuiz(quiz.id)}
                   className="w-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600"
                 >
                   Start Quiz
