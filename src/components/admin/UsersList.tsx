@@ -201,7 +201,7 @@ export const UsersList: React.FC<UsersListProps> = ({ onViewUser }) => {
                 </Button>
               </DropdownMenuTrigger>
 
-              <DropdownMenuContent className="w-[420px] p-3" align="start">
+              <DropdownMenuContent className="w-[320px] p-3" align="start">
                 {/* Filter Buttons */}
                 <RadioGroup
                   value={dateFilter}
@@ -228,7 +228,8 @@ export const UsersList: React.FC<UsersListProps> = ({ onViewUser }) => {
                         value={f.value}
                         checked={dateFilter === f.value}
                         onClick={() => setDateFilter(f.value)}
-                        className="border-purple-500 data-[state=checked]:bg-purple-600"
+                        className="border-2 border-purple-600 text-purple-600 w-5 h-5"
+                        circleClassName="fill-purple-500 size-3 "
                       />
                     </div>
                   ))}

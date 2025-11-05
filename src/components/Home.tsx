@@ -81,7 +81,7 @@ export const Home: React.FC<HomeProps> = ({ onStartQuiz, onViewHistory }) => {
               <div>
                 <p className="text-muted-foreground mb-1">Not Attempted</p>
                 <p className="text-3xl">
-                  {quizzes.length - (user?.total_quizzes || 0)}
+                  {Math.max(quizzes.length - (user?.total_quizzes || 0), 0)}
                 </p>
               </div>
               <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
