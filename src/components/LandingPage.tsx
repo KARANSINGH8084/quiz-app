@@ -184,7 +184,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 <Button
                   size="lg"
                   variant="outline"
-                  onClick={onNavigateToLogin}
+                  // onClick={onNavigateToLogin}
                   className="text-lg"
                 >
                   Login to Continue
