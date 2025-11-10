@@ -8,9 +8,10 @@ import { useAuth } from '../context/AuthContext';
 interface SignupProps {
   onSwitchToLogin: () => void;
   onSignupSuccess?: () => void;
+  onBackToHome?: () => void;
 }
 
-export const Signup: React.FC<SignupProps> = ({ onSwitchToLogin, onSignupSuccess }) => {
+export const Signup: React.FC<SignupProps> = ({ onSwitchToLogin, onSignupSuccess , onBackToHome }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -50,7 +51,16 @@ export const Signup: React.FC<SignupProps> = ({ onSwitchToLogin, onSignupSuccess
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 p-4">
-      <div className="w-full max-w-md">
+      <div className="w-full max-w-md"> {onBackToHome && (
+          <button 
+            onClick={onBackToHome}
+            className="mb-4 text-muted-foreground hover:text-foreground flex items-center space-x-2"
+          >
+            <span>←</span>
+            <span>Back to Home</span>
+          </button>
+        )}
+        
         <div className="bg-white rounded-2xl shadow-lg p-8">
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-400 to-blue-400 rounded-2xl mb-4">

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { LandingPage } from './components/LandingPage'; // ✅ NEW: Landing page import
 import { Login } from './components/Login';
 import { Signup } from './components/Signup';
 import { Home } from './components/Home';
@@ -19,11 +20,11 @@ import { QuizResult as QuizResultType } from './types';
 
 type Page = 'home' | 'quiz' | 'result' | 'history' | 'profile';
 type AdminPage = 'dashboard' | 'users' | 'user-details' | 'questions' | 'profile';
-type AuthPage = 'login' | 'signup';
+type AuthPage = 'landing' | 'login' | 'signup'; // ✅ MODIFIED: Added 'landing' to AuthPage type
 
 function AppContent() {
   const { user, loading, isAdmin } = useAuth();
-  const [authPage, setAuthPage] = useState<AuthPage>('login');
+  const [authPage, setAuthPage] = useState<AuthPage>('landing'); // ✅ MODIFIED: Start with 'landing' instead of 'login'
   const [currentPage, setCurrentPage] = useState<Page>('home');
   const [adminPage, setAdminPage] = useState<AdminPage>('dashboard');
   const [selectedQuizId, setSelectedQuizId] = useState<string | null>(null);
@@ -43,15 +44,23 @@ function AppContent() {
     );
   }
 
-  // Show auth pages if not logged in
+  // ✅ MODIFIED: Show landing page, then auth pages if not logged in
   if (!user) {
-    if (authPage === 'login') {
+    if (authPage === 'landing') {
+      return (
+        <LandingPage 
+          onNavigateToLogin={() => setAuthPage('login')}
+          onNavigateToSignup={() => setAuthPage('signup')}
+        />
+      );
+    } else if (authPage === 'login') {
       return (
         <Login 
           onSwitchToSignup={() => setAuthPage('signup')}
           onLoginSuccess={() => {
             // Will be handled by useEffect below
           }}
+          onBackToHome={() => setAuthPage('landing')} // ✅ NEW: Back to landing page
         />
       );
     } else {
@@ -59,6 +68,7 @@ function AppContent() {
         <Signup 
           onSwitchToLogin={() => setAuthPage('login')}
           onSignupSuccess={() => setCurrentPage('home')}
+          onBackToHome={() => setAuthPage('landing')} // ✅ NEW: Back to landing page
         />
       );
     }
