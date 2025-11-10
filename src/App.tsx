@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './styles/customStyle.css';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { LandingPage } from './components/LandingPage'; // ✅ NEW: Landing page import
 import { Login } from './components/Login';
@@ -17,12 +18,15 @@ import { AdminProfile } from './components/admin/AdminProfile';
 import { AdminNavbar } from './components/admin/AdminNavbar';
 import { quizzes } from './data/quizzes';
 import { QuizResult as QuizResultType } from './types';
+import { ModalContext, ModalProvider, useModalContext } from './context/model/modalContext';
+import { on } from 'events';
 
 type Page = 'home' | 'quiz' | 'result' | 'history' | 'profile';
 type AdminPage = 'dashboard' | 'users' | 'user-details' | 'questions' | 'profile';
 type AuthPage = 'landing' | 'login' | 'signup'; // ✅ MODIFIED: Added 'landing' to AuthPage type
 
 function AppContent() {
+  const modelContext = useModalContext();
   const { user, loading, isAdmin } = useAuth();
   const [authPage, setAuthPage] = useState<AuthPage>('landing'); // ✅ MODIFIED: Start with 'landing' instead of 'login'
   const [currentPage, setCurrentPage] = useState<Page>('home');
@@ -30,7 +34,38 @@ function AppContent() {
   const [selectedQuizId, setSelectedQuizId] = useState<string | null>(null);
   const [quizResult, setQuizResult] = useState<QuizResultType | null>(null);
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
-
+  const onSwitchToSignup = () => {
+    modelContext.addModal(
+      'Sign Up',
+      <Signup
+        onSwitchToLogin={onSwitchToLogin}
+        onSignupSuccess={() => {
+          setCurrentPage('home');
+          modelContext.clearModal();
+        }}
+        onBackToHome={() => modelContext.clearModal()}
+      />,
+      true,
+      false,
+      'login-modal'
+    );
+  }
+  const onSwitchToLogin = () => {
+    modelContext.addModal(
+      'Log In',
+      <Login
+        onSwitchToSignup={onSwitchToSignup}
+        onLoginSuccess={() => {
+          setCurrentPage('home');
+          modelContext.clearModal();
+        }}
+        onBackToHome={() => modelContext.clearModal()}
+      />,
+      true,
+      false,
+      'login-modal'
+    );
+  }
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-green-50 flex items-center justify-center">
@@ -48,27 +83,40 @@ function AppContent() {
   if (!user) {
     if (authPage === 'landing') {
       return (
-        <LandingPage 
+        <LandingPage
           onNavigateToLogin={() => setAuthPage('login')}
           onNavigateToSignup={() => setAuthPage('signup')}
+          onSwitchToSignup={() => onSwitchToLogin()}
+          onSwitchToLogin={() => onSwitchToSignup()}
+          onSignupSuccess={() => {
+            setCurrentPage('home');
+            modelContext.clearModal();
+          }}
+          onLoginSuccess={() => {
+            setCurrentPage('home');
+            modelContext.clearModal();
+          }}
+          onBackToHome={() => modelContext.clearModal()} // Just to illustrate closing modal if needed
         />
       );
     } else if (authPage === 'login') {
       return (
-        <Login 
-          onSwitchToSignup={() => setAuthPage('signup')}
-          onLoginSuccess={() => {
-            // Will be handled by useEffect below
-          }}
-          onBackToHome={() => setAuthPage('landing')} // ✅ NEW: Back to landing page
-        />
+        <ModalProvider>
+          <Login
+            onSwitchToSignup={() => setAuthPage('signup')}
+            onLoginSuccess={() => {
+              // Will be handled by useEffect below
+            }}
+            onBackToHome={() => modelContext.clearModal()} // ✅ NEW: Back to landing page
+          />
+        </ModalProvider>
       );
     } else {
       return (
-        <Signup 
+        <Signup
           onSwitchToLogin={() => setAuthPage('login')}
           onSignupSuccess={() => setCurrentPage('home')}
-          onBackToHome={() => setAuthPage('landing')} // ✅ NEW: Back to landing page
+          onBackToHome={() => modelContext.clearModal()} // ✅ NEW: Back to landing page
         />
       );
     }
@@ -167,7 +215,7 @@ function AppContent() {
       case 'quiz':
         if (selectedQuiz) {
           return (
-            <QuizPage 
+            <QuizPage
               quiz={selectedQuiz}
               onComplete={handleQuizComplete}
               onExit={handleQuizExit}
@@ -179,7 +227,7 @@ function AppContent() {
       case 'result':
         if (quizResult) {
           return (
-            <QuizResult 
+            <QuizResult
               result={quizResult}
               onGoHome={handleGoHome}
               onRetakeQuiz={handleRetakeQuiz}
@@ -197,7 +245,7 @@ function AppContent() {
       case 'home':
       default:
         return (
-          <Home 
+          <Home
             onStartQuiz={handleStartQuiz}
             onViewHistory={() => setCurrentPage('history')}
           />
@@ -218,7 +266,9 @@ function AppContent() {
 export default function App() {
   return (
     <AuthProvider>
-      <AppContent />
+      <ModalProvider>
+        <AppContent />
+      </ModalProvider>
     </AuthProvider>
   );
 }

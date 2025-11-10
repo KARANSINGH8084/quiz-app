@@ -1,0 +1,10 @@
+.login-modal div {
+  max-width: 25rem !important;
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .login-modal div {
+    max-width: 100% !important;
+  }
+}

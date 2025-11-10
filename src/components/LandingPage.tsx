@@ -1,12 +1,12 @@
-import React from 'react';
-import { 
-  Stethoscope, 
-  Brain, 
-  BookOpen, 
-  TrendingUp, 
-  Users, 
-  Award, 
-  Clock, 
+import React, { use } from 'react';
+import {
+  Stethoscope,
+  Brain,
+  BookOpen,
+  TrendingUp,
+  Users,
+  Award,
+  Clock,
   Target,
   CheckCircle,
   ArrowRight,
@@ -17,16 +17,31 @@ import {
 import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
 import { Badge } from './ui/badge';
+import { useModalContext } from '../context/model/modalContext';
+import { Signup } from './Signup';
+import { Login } from './Login';
 
 interface LandingPageProps {
   onNavigateToLogin: () => void;
   onNavigateToSignup: () => void;
+  onSwitchToLogin: () => void;
+  onSignupSuccess?: () => void;
+  onBackToHome?: () => void;
+  onLoginSuccess?: () => void;
+  onSwitchToSignup: () => void;
 }
 
-export const LandingPage: React.FC<LandingPageProps> = ({ 
-  onNavigateToLogin, 
-  onNavigateToSignup 
+export const LandingPage: React.FC<LandingPageProps> = ({
+  onNavigateToLogin,
+  onNavigateToSignup,
+  onSwitchToLogin,
+  onSignupSuccess,
+  onBackToHome,
+  onLoginSuccess,
+  onSwitchToSignup
+
 }) => {
+  const modelcontext = useModalContext();
   const features = [
     {
       icon: Brain,
@@ -85,6 +100,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
     { name: 'Medicine', icon: '🩺', color: 'bg-teal-50 text-teal-600 border-teal-200' },
   ];
 
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
       {/* Header */}
@@ -113,8 +129,20 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               >
                 Login
               </Button> */}
-              <Button 
-                onClick={onNavigateToSignup}
+              <Button
+                onClick={() => {
+                  modelcontext.addModal(
+                    '',
+                    <Login
+                      onSwitchToSignup={onSwitchToSignup}
+                      onLoginSuccess={onLoginSuccess}
+                      onBackToHome={onBackToHome}
+                    />,
+                    true,
+                    false,
+                    'login-modal'
+                  );
+                }}
                 className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600"
               >
                 Get Started
@@ -134,26 +162,26 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 <GraduationCap className="w-4 h-4 mr-2" />
                 Trusted by Medical Students Worldwide
               </Badge>
-              
+
               <h1 className="text-4xl sm:text-5xl lg:text-6xl mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
                 Master Medical Exams with Confidence
               </h1>
-              
+
               <p className="text-xl text-muted-foreground mb-8">
-                The most comprehensive quiz platform designed exclusively for medical students. 
+                The most comprehensive quiz platform designed exclusively for medical students.
                 Practice, learn, and excel in your medical journey.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                <Button 
+                <Button
                   size="lg"
-                  onClick={onNavigateToSignup}
+                  // onClick={onNavigateToSignup}
                   className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-lg"
                 >
                   Start Learning Now
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
-                <Button 
+                <Button
                   size="lg"
                   variant="outline"
                   onClick={onNavigateToLogin}
@@ -187,7 +215,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                       <p className="text-sm opacity-90">Questions</p>
                     </CardContent>
                   </Card>
-                  
+
                   <Card className="border-0 shadow-xl bg-gradient-to-br from-purple-500 to-pink-500 text-white transform hover:scale-105 transition-transform mt-8">
                     <CardContent className="p-6">
                       <HeartPulse className="w-12 h-12 mb-4" />
@@ -195,7 +223,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                       <p className="text-sm opacity-90">Specialties</p>
                     </CardContent>
                   </Card>
-                  
+
                   <Card className="border-0 shadow-xl bg-gradient-to-br from-pink-500 to-red-500 text-white transform hover:scale-105 transition-transform">
                     <CardContent className="p-6">
                       <Award className="w-12 h-12 mb-4" />
@@ -203,7 +231,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                       <p className="text-sm opacity-90">Success Rate</p>
                     </CardContent>
                   </Card>
-                  
+
                   <Card className="border-0 shadow-xl bg-gradient-to-br from-green-500 to-teal-500 text-white transform hover:scale-105 transition-transform mt-8">
                     <CardContent className="p-6">
                       <Brain className="w-12 h-12 mb-4" />
@@ -332,8 +360,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                   </div>
                 </div>
                 <p className="text-lg mb-6 opacity-95">
-                  "MedQuiz Pro helped me improve my USMLE Step 1 score by 25 points! The question 
-                  bank is incredibly comprehensive and the explanations are detailed. I can't 
+                  "MedQuiz Pro helped me improve my USMLE Step 1 score by 25 points! The question
+                  bank is incredibly comprehensive and the explanations are detailed. I can't
                   recommend it enough for medical students."
                 </p>
                 <div className="flex items-center space-x-1">
@@ -357,17 +385,17 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             Join thousands of medical students who are already mastering their exams with MedQuiz Pro
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
+            <Button
               size="lg"
-              onClick={onNavigateToSignup}
+              // onClick={onNavigateToSignup}
               className="bg-white text-purple-600 hover:bg-gray-100 text-lg"
             >
               Create Free Account
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
-            <Button 
+            <Button
               size="lg"
-              onClick={onNavigateToLogin}
+              // onClick={onNavigateToLogin}
               variant="outline"
               className="border-2 border-white text-purple-600 hover:bg-white/10 text-lg"
             >
@@ -393,7 +421,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 Empowering medical students to achieve excellence through smart, focused learning.
               </p>
             </div>
-            
+
             <div>
               <h3 className="mb-4">Platform</h3>
               <ul className="space-y-2 text-sm text-gray-400">
@@ -403,7 +431,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 <li>Mobile App</li>
               </ul>
             </div>
-            
+
             <div>
               <h3 className="mb-4">Resources</h3>
               <ul className="space-y-2 text-sm text-gray-400">
@@ -413,7 +441,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 <li>Blog</li>
               </ul>
             </div>
-            
+
             <div>
               <h3 className="mb-4">Support</h3>
               <ul className="space-y-2 text-sm text-gray-400">
@@ -424,7 +452,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               </ul>
             </div>
           </div>
-          
+
           <div className="border-t border-gray-800 pt-8 text-center text-sm text-gray-400">
             <p>&copy; 2025 MedQuiz Pro. All rights reserved. Built for medical students, by medical educators.</p>
           </div>

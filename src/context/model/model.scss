@@ -1,0 +1,238 @@
+
+.modal {
+    @include flex-center;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99999;
+    transition: 0.4s opacity;
+
+    &--inactive {
+        height: 0;
+        width: 0;
+        user-select: none;
+        opacity: 0;
+    }
+
+    &--active {
+        opacity: 1;
+    }
+
+    &--withScroll {
+        position: absolute;
+        height: auto;
+    }
+
+    &.fullScreen {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        :not(.modal__uploadImages) {
+            .modal__card {
+                background: $white180deg;
+                width: calc(100% - 4rem);
+                min-height: unset;
+                padding: 2rem 3rem;
+                border-radius: 2rem;
+
+                // position: relative;
+                .modal__title {
+                    img {
+                        right: 0;
+                    }
+                }
+
+                &__withoutTitle {
+                    padding: 0;
+                    position: relative;
+
+                    &__close {
+                        position: absolute;
+                        top: 2rem;
+                        right: 2rem;
+                        z-index: 1;
+                    }
+                }
+            }
+        }
+
+        .modal__card {
+            width: 100%;
+            min-height: 100%;
+            border-radius: unset;
+            padding: 3.2rem 0 6rem;
+
+            .modal__title {
+                margin-top: 0;
+                margin-bottom: 0;
+
+                img {
+                    right: 2.4rem;
+                    top: 0;
+                }
+            }
+        }
+
+        > .modal__card {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    &__title {
+        @include montserrat-18-bold;
+        position: relative;
+        margin-bottom: 2.5rem;
+        margin-top: 2rem;
+        font-weight: 600;
+
+        img {
+            position: absolute;
+            right: 0;
+            top: -1rem;
+            cursor: pointer;
+        }
+    }
+
+    &__card {
+        background: $white180deg;
+        width: calc(100% - 4rem);
+        max-width: 70rem;
+        padding: 2rem 3rem;
+        border-radius: 2rem;
+        max-height: 90%;
+        overflow-y: auto;
+
+        &__withoutTitle {
+            padding: 0;
+            position: relative;
+
+            &__close {
+                position: absolute;
+                top: 2rem;
+                right: 2rem;
+                z-index: 1;
+            }
+        }
+    }
+
+    &__icons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2.5rem;
+    }
+
+    &__option {
+        width: 45%;
+
+        &--img {
+            @include flex-center;
+            height: 10rem;
+            width: 100%;
+            background: $white180deg;
+            border: 0.3rem solid $white;
+            border-radius: 2rem;
+        }
+
+        &--p {
+            @include montserrat-12-bold;
+            color: $grey;
+            text-align: center;
+        }
+    }
+
+    &__scrollblock {
+        // overflow-y: hidden !important;
+    }
+
+    &.no-close {
+        .modal__card__withoutTitle {
+            padding: 0;
+            position: relative;
+
+            &__close {
+                display: none;
+            }
+        }
+    }
+}
+
+.previewModal {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    height: 100%;
+    background-color: white;
+
+    &--inactive {
+        height: 0;
+        width: 0;
+        user-select: none;
+        opacity: 0;
+        display: none;
+    }
+
+    &--active {
+        opacity: 1;
+    }
+
+    &--minimized {
+        top: unset;
+        bottom: 0;
+        height: 17rem;
+        background: $white;
+        box-shadow: 0 0 2rem rgba(0, 0, 0, 0.4);
+        border-radius: 1.5rem;
+        z-index: 6;
+
+        &.video {
+            height: 18rem;
+        }
+    }
+
+    &__close {
+        position: absolute;
+        top: 3rem;
+        right: 2rem;
+    }
+}
+
+
+.modal__close_button {
+  width: 3rem; // Bigger clickable area
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  z-index: 2;
+  // Optional: round or subtle hover
+  border-radius: 50%;
+  transition: background 0.15s;
+  &:hover, &:focus {
+    background: rgba(0,0,0,0.07);
+    outline: none;
+  }
+  img {
+    width: 1.5rem;
+    height: 1.5rem;
+    pointer-events: none;
+  }
+}
+/* // If you have modal__card__withoutTitle__close specific tweaks, you can add here
+.modal__card__withoutTitle__close {
+  // Existing styles (if any)
+} */

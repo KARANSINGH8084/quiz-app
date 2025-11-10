@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Lock, User, Eye, EyeOff } from 'lucide-react';
+import { Mail, Lock, User, Eye, EyeOff, XCircle } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
@@ -11,7 +11,7 @@ interface SignupProps {
   onBackToHome?: () => void;
 }
 
-export const Signup: React.FC<SignupProps> = ({ onSwitchToLogin, onSignupSuccess , onBackToHome }) => {
+export const Signup: React.FC<SignupProps> = ({ onSwitchToLogin, onSignupSuccess, onBackToHome }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -23,22 +23,22 @@ export const Signup: React.FC<SignupProps> = ({ onSwitchToLogin, onSignupSuccess
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    
+
     if (!name || !email || !password || !confirmPassword) {
       setError('Please fill in all fields');
       return;
     }
-    
+
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;
     }
-    
+
     if (password.length < 6) {
       setError('Password must be at least 6 characters');
       return;
     }
-    
+
     try {
       await signup(name, email, password);
       if (onSignupSuccess) {
@@ -50,22 +50,22 @@ export const Signup: React.FC<SignupProps> = ({ onSwitchToLogin, onSignupSuccess
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 p-4">
-      <div className="w-full max-w-md"> {onBackToHome && (
-          <button 
+    <div className="">
+      <div className="">
+        {onBackToHome && (
+          <button
             onClick={onBackToHome}
-            className="mb-4 text-muted-foreground hover:text-foreground flex items-center space-x-2"
+            className="w-full text-muted-foreground hover:text-foreground flex items-center justify-end p-5 space-x-2"
           >
-            <span>←</span>
-            <span>Back to Home</span>
+            <XCircle className="w-6 h-6 cursor-pointer" />
           </button>
         )}
-        
-        <div className="bg-white rounded-2xl shadow-lg p-8">
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-400 to-blue-400 rounded-2xl mb-4">
+
+        <div className="bg-white rounded-2xl shadow-lg pb-5 px-5">
+          <div className="text-center mb-3">
+            {/* <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-400 to-blue-400 rounded-2xl mb-4">
               <span className="text-white text-2xl">🎓</span>
-            </div>
+            </div> */}
             <h1 className="text-3xl mb-2">Create Account</h1>
             <p className="text-muted-foreground">Start your learning journey today</p>
           </div>

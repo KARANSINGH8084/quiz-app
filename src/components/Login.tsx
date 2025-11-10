@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, XCircle } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
@@ -38,22 +38,21 @@ export const Login: React.FC<LoginProps> = ({ onSwitchToSignup, onLoginSuccess ,
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 via-blue-50 to-green-50 p-4">
-      <div className="w-full max-w-md">
+    <div className="">
+      <div className="">
          {onBackToHome && (
           <button 
             onClick={onBackToHome}
-            className="mb-4 text-muted-foreground hover:text-foreground flex items-center space-x-2"
+            className="w-full text-muted-foreground hover:text-foreground flex items-center justify-end p-5 space-x-2"
           >
-            <span>←</span>
-            <span>Back to Home</span>
+           <XCircle className="w-6 h-6 cursor-pointer" />
           </button>
         )}
-        <div className="bg-white rounded-2xl shadow-lg p-8">
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-400 to-blue-400 rounded-2xl mb-4">
+        <div className="bg-white rounded-2xl shadow-lg px-5 pb-5">
+          <div className="text-center mb-3">
+            {/* <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-400 to-blue-400 rounded-2xl mb-4">
               <span className="text-white text-2xl">🧠</span>
-            </div>
+            </div> */}
             <h1 className="text-3xl mb-2">Welcome Back</h1>
             <p className="text-muted-foreground">Sign in to continue your quiz journey</p>
           </div>
