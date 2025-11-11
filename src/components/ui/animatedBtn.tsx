@@ -97,7 +97,7 @@ export const EncryptButton = ({
       whileTap={{ scale: 0.975 }}
       onMouseEnter={scramble}
       onMouseLeave={stopScramble}
-      className={`group relative overflow-hidden rounded-lg border border-neutral-500 bg-neutral-800 px-4 py-2 font-mono font-medium uppercase text-neutral-300 transition-colors hover:text-indigo-300 ${className}`}
+      className={`group relative overflow-hidden rounded-lg px-4 py-2 font-mono font-medium uppercase transition-colors ${className}`}
     >
       <div className="relative z-10 flex items-center gap-2">
         <Icon className="text-lg" />

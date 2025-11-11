@@ -145,7 +145,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 );
               }}
               >
-                <EncryptButton label="Get Started" Icon={FiShield} className='bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600' />
+                <EncryptButton label="Get Started" Icon={FiShield} className='bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white' />
               </div>
             </div>
           </div>
