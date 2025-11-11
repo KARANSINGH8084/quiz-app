@@ -20,6 +20,8 @@ import { Badge } from './ui/badge';
 import { useModalContext } from '../context/model/modalContext';
 import { Signup } from './Signup';
 import { Login } from './Login';
+import { DrawOutlineButton, EncryptButton } from './ui/animatedBtn';
+import { FiShield } from 'react-icons/fi';
 
 interface LandingPageProps {
   onNavigateToLogin: () => void;
@@ -129,24 +131,22 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               >
                 Login
               </Button> */}
-              <Button
-                onClick={() => {
-                  modelcontext.addModal(
-                    '',
-                    <Login
-                      onSwitchToSignup={onSwitchToSignup}
-                      onLoginSuccess={onLoginSuccess}
-                      onBackToHome={onBackToHome}
-                    />,
-                    true,
-                    false,
-                    'login-modal'
-                  );
-                }}
-                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600"
+              <div onClick={() => {
+                modelcontext.addModal(
+                  '',
+                  <Login
+                    onSwitchToSignup={onSwitchToSignup}
+                    onLoginSuccess={onLoginSuccess}
+                    onBackToHome={onBackToHome}
+                  />,
+                  true,
+                  false,
+                  'login-modal'
+                );
+              }}
               >
-                Get Started
-              </Button>
+                <EncryptButton label="Get Started" Icon={FiShield} className='bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600' />
+              </div>
             </div>
           </div>
         </div>
@@ -154,7 +154,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
       {/* Hero Section */}
       <section className="relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-24">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
             <div>
@@ -387,21 +387,23 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               size="lg"
-              // onClick={onNavigateToSignup}
-              className="bg-white text-purple-600 hover:bg-gray-100 text-lg"
+              // onClick={onNavigateToLogin}
+              className="btn liquid border-2 border-white bg-white text-white text-lg"
             >
               Create Free Account
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
+
             <Button
               size="lg"
               // onClick={onNavigateToLogin}
               variant="outline"
-              className="border-2 border-white text-purple-600 hover:bg-white/10 text-lg"
+              className=" border-white border-2 text-purple-600 hover:bg-white/10 text-lg"
             >
               Already have an account? Login
             </Button>
           </div>
+
           <p className="mt-6 text-sm opacity-75">
             Start your free trial today • No credit card required • Cancel anytime
           </p>

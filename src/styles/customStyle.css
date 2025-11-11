@@ -8,3 +8,21 @@
     max-width: 100% !important;
   }
 }
+
+.btn {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.liquid {
+  background: linear-gradient(#f5f5fa 0 0) no-repeat calc(199% - var(--p, 0%))
+    100% / 200% var(--p, 0.3em);
+  transition: 0.3s var(--t, 0s),
+  background-position 0.3s calc(0.3s - var(--t, 0s));
+}
+
+.liquid:hover {
+  --p: 100%;
+  --t: 0.3s;
+  color: black;
+}
