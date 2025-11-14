@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import './styles/customStyle.css';
 import { AuthProvider, useAuth } from './context/AuthContext';
-import { LandingPage } from './components/LandingPage'; // ✅ NEW: Landing page import
+import { LandingPage } from './components/LandingPage';
 import { Login } from './components/Login';
 import { Signup } from './components/Signup';
 import { Home } from './components/Home';
@@ -17,11 +16,15 @@ import { ManageQuestions } from './components/admin/ManageQuestions';
 import { AdminProfile } from './components/admin/AdminProfile';
 import { AdminNavbar } from './components/admin/AdminNavbar';
 import { quizzes } from './data/quizzes';
-import { QuizResult as QuizResultType } from './types';
+import { medicalQuizzes } from './data/medicalQuizzes'; // ✅ NEW: Import medical quizzes
+import { QuizResult as QuizResultType, Quiz } from './types';
 import { ModalContext, ModalProvider, useModalContext } from './context/model/modalContext';
-import { on } from 'events';
+import { Toaster } from './components/ui/sonner'; // ✅ NEW: Toast notifications
+import './styles/customStyle.css';
+import FunPage from './fun/FunPage';
 
-type Page = 'home' | 'quiz' | 'result' | 'history' | 'profile';
+
+type Page = 'home' | 'quiz' | 'result' | 'history' | 'profile' | 'fun';
 type AdminPage = 'dashboard' | 'users' | 'user-details' | 'questions' | 'profile';
 type AuthPage = 'landing' | 'login' | 'signup'; // ✅ MODIFIED: Added 'landing' to AuthPage type
 
@@ -66,14 +69,22 @@ function AppContent() {
       'login-modal'
     );
   }
+  // ✅ UPDATED: Enhanced loading state with skeleton
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-green-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-16 h-16 bg-gradient-to-br from-purple-400 to-blue-400 rounded-2xl flex items-center justify-center mx-auto mb-4 animate-pulse">
-            <span className="text-white text-3xl">🧠</span>
+        <div className="text-center max-w-md mx-auto p-8">
+          <div className="relative w-20 h-20 mx-auto mb-6">
+            <div className="absolute inset-0 bg-gradient-to-br from-purple-400 to-blue-400 rounded-2xl animate-pulse"></div>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className="text-white text-4xl">🩺</span>
+            </div>
           </div>
-          <p className="text-muted-foreground">Loading...</p>
+          <h2 className="text-2xl mb-2">MedQuiz</h2>
+          <p className="text-muted-foreground mb-4">Loading your medical journey...</p>
+          <div className="w-48 h-1 bg-gray-200 rounded-full mx-auto overflow-hidden">
+            <div className="h-full bg-gradient-to-r from-purple-400 to-blue-400 rounded-full animate-[progress_1.5s_ease-in-out_infinite]"></div>
+          </div>
         </div>
       </div>
     );
@@ -189,7 +200,7 @@ function AppContent() {
   // Handle retaking quiz
   const handleRetakeQuiz = () => {
     if (quizResult) {
-      setSelectedQuizId(quizResult.quizId);
+      setSelectedQuizId(selectedQuizId);
       setCurrentPage('quiz');
     }
   };
@@ -206,8 +217,19 @@ function AppContent() {
     setCurrentPage('home');
   };
 
-  // Get selected quiz
-  const selectedQuiz = selectedQuizId ? quizzes.find(q => q.id === selectedQuizId) : null;
+  // ✅ UPDATED: Get selected quiz from both sources and temp_quiz
+  const selectedQuiz = selectedQuizId ? (() => {
+    // Check temp_quiz in localStorage
+    if (selectedQuizId === 'temp_quiz') {
+      const tempQuizData = localStorage.getItem('temp_quiz');
+      if (tempQuizData) {
+        return JSON.parse(tempQuizData) as Quiz;
+      }
+    }
+    // Check medical quizzes first, then practice quizzes
+    return medicalQuizzes.find(q => q.id === selectedQuizId) ||
+      quizzes.find(q => q.id === selectedQuizId);
+  })() : null;
 
   // Render current page
   const renderPage = () => {
@@ -241,6 +263,8 @@ function AppContent() {
 
       case 'profile':
         return <Profile />;
+      case 'fun':
+        return <FunPage />;
 
       case 'home':
       default:
@@ -267,6 +291,7 @@ export default function App() {
   return (
     <AuthProvider>
       <ModalProvider>
+        <Toaster position="top-right" richColors />
         <AppContent />
       </ModalProvider>
     </AuthProvider>

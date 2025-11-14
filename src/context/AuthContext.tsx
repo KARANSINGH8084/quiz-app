@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { User, QuizResult } from '../types';
+import { User, QuizResult, Rank } from '../types';
+import { getRankFromXP } from '../data/medicalQuizzes';
 
 interface AuthContextType {
   user: User | null;
@@ -13,6 +14,9 @@ interface AuthContextType {
   isAdmin: boolean;
   getAllUsers: () => User[];
   getUserResults: (userId: string) => QuizResult[];
+  // ✅ NEW: Gamification methods
+  addXP: (xp: number) => void;
+  updateAvatar: (avatar: string) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -159,6 +163,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       total_attempts: 0,
       not_attempted: 4, // Total number of quizzes available
       role: 'user',
+      // ✅ NEW: Initialize gamification fields
+      xp: 0,
+      rank: 'Snake',
+      selectedAvatar: '🐍',
+      level: 1,
     };
 
     users[emailLower] = {
@@ -267,6 +276,52 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return allResults[userId] || [];
   };
 
+  // ✅ NEW: Add XP and update rank
+  const addXP = (xp: number) => {
+    if (!user || user.role === 'admin') return;
+
+    const newXP = (user.xp || 0) + xp;
+    const newRank = getRankFromXP(newXP);
+    const newLevel = Math.min(6, Math.floor(newXP / 200) + 1);
+
+    const updatedUser = {
+      ...user,
+      xp: newXP,
+      rank: newRank,
+      level: newLevel,
+    };
+
+    setUser(updatedUser);
+
+    // Update user in storage
+    const users = getStoredUsers();
+    const userRecord = users[user.email];
+    if (userRecord) {
+      userRecord.userData = updatedUser;
+      saveStoredUsers(users);
+    }
+  };
+
+  // ✅ NEW: Update avatar
+  const updateAvatar = (avatar: string) => {
+    if (!user) return;
+
+    const updatedUser = {
+      ...user,
+      selectedAvatar: avatar,
+    };
+
+    setUser(updatedUser);
+
+    // Update user in storage
+    const users = getStoredUsers();
+    const userRecord = users[user.email];
+    if (userRecord) {
+      userRecord.userData = updatedUser;
+      saveStoredUsers(users);
+    }
+  };
+
   const isAdmin = user?.role === 'admin';
 
   return (
@@ -282,7 +337,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         loading,
         isAdmin,
         getAllUsers,
-        getUserResults
+        getUserResults,
+        addXP,
+        updateAvatar,
       }}
     >
       {children}

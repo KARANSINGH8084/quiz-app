@@ -52,16 +52,16 @@ export const Signup: React.FC<SignupProps> = ({ onSwitchToLogin, onSignupSuccess
   return (
     <div className="">
       <div className="">
-        {onBackToHome && (
+        {/* {onBackToHome && (
           <button
             onClick={onBackToHome}
             className="w-full text-muted-foreground hover:text-foreground flex items-center justify-end p-5 space-x-2"
           >
             <XCircle className="w-6 h-6 cursor-pointer" />
           </button>
-        )}
+        )} */}
 
-        <div className="bg-white rounded-2xl shadow-lg pb-5 px-5">
+        <div className="pb-5 px-5">
           <div className="text-center mb-3">
             {/* <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-400 to-blue-400 rounded-2xl mb-4">
               <span className="text-white text-2xl">🎓</span>
@@ -71,7 +71,7 @@ export const Signup: React.FC<SignupProps> = ({ onSwitchToLogin, onSignupSuccess
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
-            <div className="space-y-2">
+            <div className="space-y-0 mb-1">
               <Label htmlFor="name">Full Name</Label>
               <div className="relative">
                 <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
@@ -86,7 +86,7 @@ export const Signup: React.FC<SignupProps> = ({ onSwitchToLogin, onSignupSuccess
               </div>
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-0 mb-1">
               <Label htmlFor="email">Email</Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
@@ -101,7 +101,7 @@ export const Signup: React.FC<SignupProps> = ({ onSwitchToLogin, onSignupSuccess
               </div>
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-0 mb-1">
               <Label htmlFor="password">Password</Label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
@@ -123,7 +123,7 @@ export const Signup: React.FC<SignupProps> = ({ onSwitchToLogin, onSignupSuccess
               </div>
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-0 mb-1">
               <Label htmlFor="confirmPassword">Confirm Password</Label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />

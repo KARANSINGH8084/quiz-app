@@ -1,549 +1,334 @@
-// import { Quiz } from '../types';
-
-// export const quizzes: Quiz[] = [
-//   {
-//     id: 'q1',
-//     title: 'General Knowledge',
-//     category: 'General',
-//     difficulty: 'easy',
-//     timeLimit: 10,
-//     questions: [
-//       {
-//         id: 'q1_1',
-//         question: 'What is the capital of France?',
-//         options: ['London', 'Berlin', 'Paris', 'Madrid'],
-//         correctAnswer: 2,
-//         category: 'Geography'
-//       },
-//       {
-//         id: 'q1_2',
-//         question: 'How many continents are there?',
-//         options: ['5', '6', '7', '8'],
-//         correctAnswer: 2,
-//         category: 'Geography'
-//       },
-//       {
-//         id: 'q1_3',
-//         question: 'What is the largest planet in our solar system?',
-//         options: ['Earth', 'Mars', 'Jupiter', 'Saturn'],
-//         correctAnswer: 2,
-//         category: 'Science'
-//       },
-//       {
-//         id: 'q1_4',
-//         question: 'Who painted the Mona Lisa?',
-//         options: ['Michelangelo', 'Leonardo da Vinci', 'Picasso', 'Van Gogh'],
-//         correctAnswer: 1,
-//         category: 'Art'
-//       },
-//       {
-//         id: 'q1_5',
-//         question: 'What is the smallest prime number?',
-//         options: ['0', '1', '2', '3'],
-//         correctAnswer: 2,
-//         category: 'Math'
-//       },
-//       {
-//         id: 'q1_6',
-//         question: 'In which year did World War II end?',
-//         options: ['1943', '1944', '1945', '1946'],
-//         correctAnswer: 2,
-//         category: 'History'
-//       },
-//       {
-//         id: 'q1_7',
-//         question: 'What is the chemical symbol for gold?',
-//         options: ['Go', 'Gd', 'Au', 'Ag'],
-//         correctAnswer: 2,
-//         category: 'Science'
-//       },
-//       {
-//         id: 'q1_8',
-//         question: 'How many sides does a hexagon have?',
-//         options: ['5', '6', '7', '8'],
-//         correctAnswer: 1,
-//         category: 'Math'
-//       },
-//       {
-//         id: 'q1_9',
-//         question: 'What is the largest ocean on Earth?',
-//         options: ['Atlantic', 'Indian', 'Arctic', 'Pacific'],
-//         correctAnswer: 3,
-//         category: 'Geography'
-//       },
-//       {
-//         id: 'q1_10',
-//         question: 'Who wrote "Romeo and Juliet"?',
-//         options: ['Charles Dickens', 'William Shakespeare', 'Jane Austen', 'Mark Twain'],
-//         correctAnswer: 1,
-//         category: 'Literature'
-//       }
-//     ]
-//   },
-//   {
-//     id: 'q2',
-//     title: 'Science Basics',
-//     category: 'Science',
-//     difficulty: 'medium',
-//     timeLimit: 12,
-//     questions: [
-//       {
-//         id: 'q2_1',
-//         question: 'What is the speed of light?',
-//         options: ['300,000 km/s', '150,000 km/s', '450,000 km/s', '600,000 km/s'],
-//         correctAnswer: 0,
-//         category: 'Physics'
-//       },
-//       {
-//         id: 'q2_2',
-//         question: 'What is the powerhouse of the cell?',
-//         options: ['Nucleus', 'Mitochondria', 'Ribosome', 'Golgi body'],
-//         correctAnswer: 1,
-//         category: 'Biology'
-//       },
-//       {
-//         id: 'q2_3',
-//         question: 'What is H2O commonly known as?',
-//         options: ['Hydrogen', 'Oxygen', 'Water', 'Peroxide'],
-//         correctAnswer: 2,
-//         category: 'Chemistry'
-//       },
-//       {
-//         id: 'q2_4',
-//         question: 'What planet is known as the Red Planet?',
-//         options: ['Venus', 'Mars', 'Jupiter', 'Mercury'],
-//         correctAnswer: 1,
-//         category: 'Astronomy'
-//       },
-//       {
-//         id: 'q2_5',
-//         question: 'What is the hardest natural substance on Earth?',
-//         options: ['Gold', 'Iron', 'Diamond', 'Platinum'],
-//         correctAnswer: 2,
-//         category: 'Geology'
-//       },
-//       {
-//         id: 'q2_6',
-//         question: 'How many bones are in the adult human body?',
-//         options: ['186', '206', '226', '246'],
-//         correctAnswer: 1,
-//         category: 'Biology'
-//       },
-//       {
-//         id: 'q2_7',
-//         question: 'What gas do plants absorb from the atmosphere?',
-//         options: ['Oxygen', 'Nitrogen', 'Carbon Dioxide', 'Hydrogen'],
-//         correctAnswer: 2,
-//         category: 'Biology'
-//       },
-//       {
-//         id: 'q2_8',
-//         question: 'What is the center of an atom called?',
-//         options: ['Electron', 'Proton', 'Neutron', 'Nucleus'],
-//         correctAnswer: 3,
-//         category: 'Chemistry'
-//       },
-//       {
-//         id: 'q2_9',
-//         question: 'What is the boiling point of water at sea level?',
-//         options: ['90°C', '100°C', '110°C', '120°C'],
-//         correctAnswer: 1,
-//         category: 'Physics'
-//       },
-//       {
-//         id: 'q2_10',
-//         question: 'What force keeps us on the ground?',
-//         options: ['Magnetism', 'Friction', 'Gravity', 'Tension'],
-//         correctAnswer: 2,
-//         category: 'Physics'
-//       }
-//     ]
-//   },
-//   {
-//     id: 'q3',
-//     title: 'History Quiz',
-//     category: 'History',
-//     difficulty: 'medium',
-//     timeLimit: 15,
-//     questions: [
-//       {
-//         id: 'q3_1',
-//         question: 'Who was the first President of the United States?',
-//         options: ['Thomas Jefferson', 'George Washington', 'John Adams', 'Benjamin Franklin'],
-//         correctAnswer: 1,
-//         category: 'History'
-//       },
-//       {
-//         id: 'q3_2',
-//         question: 'In which year did the Titanic sink?',
-//         options: ['1910', '1911', '1912', '1913'],
-//         correctAnswer: 2,
-//         category: 'History'
-//       },
-//       {
-//         id: 'q3_3',
-//         question: 'Who discovered America?',
-//         options: ['Christopher Columbus', 'Amerigo Vespucci', 'Leif Erikson', 'Ferdinand Magellan'],
-//         correctAnswer: 0,
-//         category: 'History'
-//       },
-//       {
-//         id: 'q3_4',
-//         question: 'What ancient wonder was located in Egypt?',
-//         options: ['Hanging Gardens', 'Colossus of Rhodes', 'Great Pyramid', 'Lighthouse of Alexandria'],
-//         correctAnswer: 2,
-//         category: 'History'
-//       },
-//       {
-//         id: 'q3_5',
-//         question: 'Who was known as the Iron Lady?',
-//         options: ['Queen Elizabeth', 'Margaret Thatcher', 'Angela Merkel', 'Indira Gandhi'],
-//         correctAnswer: 1,
-//         category: 'History'
-//       },
-//       {
-//         id: 'q3_6',
-//         question: 'In which year did World War I begin?',
-//         options: ['1912', '1914', '1916', '1918'],
-//         correctAnswer: 1,
-//         category: 'History'
-//       },
-//       {
-//         id: 'q3_7',
-//         question: 'Who painted the Sistine Chapel ceiling?',
-//         options: ['Leonardo da Vinci', 'Raphael', 'Michelangelo', 'Donatello'],
-//         correctAnswer: 2,
-//         category: 'Art History'
-//       },
-//       {
-//         id: 'q3_8',
-//         question: 'What was the name of the first artificial satellite?',
-//         options: ['Apollo 1', 'Sputnik 1', 'Explorer 1', 'Vostok 1'],
-//         correctAnswer: 1,
-//         category: 'History'
-//       },
-//       {
-//         id: 'q3_9',
-//         question: 'Who wrote the Declaration of Independence?',
-//         options: ['George Washington', 'Benjamin Franklin', 'Thomas Jefferson', 'John Adams'],
-//         correctAnswer: 2,
-//         category: 'History'
-//       },
-//       {
-//         id: 'q3_10',
-//         question: 'What empire was ruled by Julius Caesar?',
-//         options: ['Greek Empire', 'Roman Empire', 'Persian Empire', 'Byzantine Empire'],
-//         correctAnswer: 1,
-//         category: 'History'
-//       }
-//     ]
-//   },
-//   {
-//     id: 'q4',
-//     title: 'Technology Trivia',
-//     category: 'Technology',
-//     difficulty: 'hard',
-//     timeLimit: 12,
-//     questions: [
-//       {
-//         id: 'q4_1',
-//         question: 'Who is considered the father of computers?',
-//         options: ['Alan Turing', 'Charles Babbage', 'Steve Jobs', 'Bill Gates'],
-//         correctAnswer: 1,
-//         category: 'Technology'
-//       },
-//       {
-//         id: 'q4_2',
-//         question: 'What does HTTP stand for?',
-//         options: ['HyperText Transfer Protocol', 'High Tech Transfer Protocol', 'HyperText Translation Program', 'Home Tool Transfer Protocol'],
-//         correctAnswer: 0,
-//         category: 'Technology'
-//       },
-//       {
-//         id: 'q4_3',
-//         question: 'What year was the first iPhone released?',
-//         options: ['2005', '2006', '2007', '2008'],
-//         correctAnswer: 2,
-//         category: 'Technology'
-//       },
-//       {
-//         id: 'q4_4',
-//         question: 'What does AI stand for?',
-//         options: ['Automated Intelligence', 'Artificial Intelligence', 'Advanced Integration', 'Applied Innovation'],
-//         correctAnswer: 1,
-//         category: 'Technology'
-//       },
-//       {
-//         id: 'q4_5',
-//         question: 'Who founded Microsoft?',
-//         options: ['Steve Jobs', 'Bill Gates', 'Mark Zuckerberg', 'Elon Musk'],
-//         correctAnswer: 1,
-//         category: 'Technology'
-//       },
-//       {
-//         id: 'q4_6',
-//         question: 'What is the most popular programming language in 2025?',
-//         options: ['Java', 'Python', 'JavaScript', 'C++'],
-//         correctAnswer: 1,
-//         category: 'Technology'
-//       },
-//       {
-//         id: 'q4_7',
-//         question: 'What does CPU stand for?',
-//         options: ['Central Processing Unit', 'Computer Personal Unit', 'Central Program Utility', 'Core Processing Unit'],
-//         correctAnswer: 0,
-//         category: 'Technology'
-//       },
-//       {
-//         id: 'q4_8',
-//         question: 'What company developed Android OS?',
-//         options: ['Apple', 'Microsoft', 'Google', 'Samsung'],
-//         correctAnswer: 2,
-//         category: 'Technology'
-//       },
-//       {
-//         id: 'q4_9',
-//         question: 'What does RAM stand for?',
-//         options: ['Random Access Memory', 'Read Access Memory', 'Rapid Application Memory', 'Runtime Application Memory'],
-//         correctAnswer: 0,
-//         category: 'Technology'
-//       },
-//       {
-//         id: 'q4_10',
-//         question: 'What is the largest social media platform?',
-//         options: ['Twitter', 'Instagram', 'Facebook', 'TikTok'],
-//         correctAnswer: 2,
-//         category: 'Technology'
-//       }
-//     ]
-//   }
-// ];
-
-
+// ✅ UPDATED: Medical science practice quizzes
 import { Quiz } from '../types';
 
 export const quizzes: Quiz[] = [
   {
-    id: 'm1',
-    title: 'Human Anatomy',
-    category: 'Anatomy',
+    id: 'practice1',
+    title: 'Basic Medical Terminology',
+    category: 'Medical Basics',
     difficulty: 'easy',
-    timeLimit: 12,
+    level: 1,
+    timeLimit: 10,
     questions: [
       {
-        id: 'm1_1',
-        question: 'Which organ pumps blood throughout the body?',
-        options: ['Brain', 'Heart', 'Liver', 'Lungs'],
+        id: 'p1_1',
+        question: 'What does the prefix "hyper-" mean?',
+        options: ['Below normal', 'Above normal', 'Within', 'Around'],
         correctAnswer: 1,
-        category: 'Anatomy',
-        image: 'https://picsum.photos/seed/heart/400/300',
-        imageTitle: 'Human Heart'
+        category: 'Medical Terminology',
+        difficulty: 1,
+        keyPoint: '"Hyper-" means excessive or above normal, as in hypertension (high blood pressure) or hyperglycemia (high blood sugar).',
+        reference: 'Medical Terminology: A Short Course, Chabner'
       },
       {
-        id: 'm1_2',
-        question: 'Which bone is known as the thigh bone?',
-        options: ['Femur', 'Tibia', 'Fibula', 'Humerus'],
-        correctAnswer: 0,
-        category: 'Anatomy',
-        image: 'https://picsum.photos/seed/femur/400/300',
-        imageTitle: 'Femur Bone'
-      },
-      {
-        id: 'm1_3',
-        question: 'Which organ is responsible for filtering blood?',
-        options: ['Kidney', 'Lung', 'Stomach', 'Skin'],
-        correctAnswer: 0,
-        category: 'Anatomy',
-        image: 'https://picsum.photos/seed/kidney/400/300',
-        imageTitle: 'Kidneys'
-      },
-      {
-        id: 'm1_4',
-        question: 'Which system controls body movements?',
-        options: ['Digestive system', 'Muscular system', 'Respiratory system', 'Circulatory system'],
+        id: 'p1_2',
+        question: 'What is the medical term for inflammation of the liver?',
+        options: ['Nephritis', 'Hepatitis', 'Gastritis', 'Colitis'],
         correctAnswer: 1,
-        category: 'Anatomy',
-        image: 'https://picsum.photos/seed/muscle/400/300',
-        imageTitle: 'Muscular System'
+        category: 'Medical Terminology',
+        difficulty: 1,
+        keyPoint: 'Hepatitis refers to liver inflammation. The suffix "-itis" always means inflammation.',
+        reference: 'Medical Terminology Systems, Gylys & Masters'
       },
       {
-        id: 'm1_5',
-        question: 'Which organ is responsible for producing insulin?',
-        options: ['Pancreas', 'Liver', 'Gallbladder', 'Kidney'],
-        correctAnswer: 0,
-        category: 'Anatomy',
-        image: 'https://picsum.photos/seed/pancreas/400/300',
-        imageTitle: 'Pancreas'
-      }
-    ]
-  },
-
-  {
-    id: 'm2',
-    title: 'Medical Science Basics',
-    category: 'Medicine',
-    difficulty: 'medium',
-    timeLimit: 12,
-    questions: [
-      {
-        id: 'm2_1',
-        question: 'Which disease is caused by the deficiency of insulin?',
-        options: ['Diabetes', 'Cancer', 'Hypertension', 'Asthma'],
-        correctAnswer: 0,
-        category: 'Medicine',
-        image: 'https://picsum.photos/seed/diabetes/400/300',
-        imageTitle: 'Diabetes Awareness'
+        id: 'p1_3',
+        question: 'What does "bradycardia" mean?',
+        options: ['Fast heart rate', 'Slow heart rate', 'Irregular heart rate', 'Stopped heart rate'],
+        correctAnswer: 1,
+        category: 'Cardiology',
+        difficulty: 1,
+        keyPoint: '"Brady-" means slow. Bradycardia is a heart rate below 60 bpm in adults.',
+        reference: 'ECG Interpretation Made Incredibly Easy'
       },
       {
-        id: 'm2_2',
+        id: 'p1_4',
         question: 'What is the normal body temperature in Celsius?',
-        options: ['36°C', '37°C', '38°C', '39°C'],
+        options: ['35°C', '37°C', '39°C', '40°C'],
         correctAnswer: 1,
-        category: 'Medicine',
-        image: 'https://picsum.photos/seed/temperature/400/300',
-        imageTitle: 'Body Temperature'
+        category: 'Physiology',
+        difficulty: 1,
+        keyPoint: 'Normal body temperature is approximately 37°C (98.6°F), with slight variations throughout the day.',
+        reference: 'Guyton and Hall Textbook of Medical Physiology'
       },
       {
-        id: 'm2_3',
-        question: 'What is the liquid component of blood called?',
-        options: ['Plasma', 'Platelets', 'RBC', 'WBC'],
+        id: 'p1_5',
+        question: 'What does "NPO" stand for in medical orders?',
+        options: ['Nothing by mouth', 'Not per order', 'No pain observed', 'Normal postoperative'],
         correctAnswer: 0,
-        category: 'Medicine',
-        image: 'https://picsum.photos/seed/blood/400/300',
-        imageTitle: 'Blood Plasma'
+        category: 'Clinical Practice',
+        difficulty: 1,
+        keyPoint: 'NPO (nil per os) means nothing by mouth - no food or drink, typically before surgery or procedures.',
+        reference: 'Clinical Nursing Skills & Techniques, Perry & Potter'
       },
       {
-        id: 'm2_4',
-        question: 'Which vitamin is produced when the skin is exposed to sunlight?',
-        options: ['Vitamin A', 'Vitamin B', 'Vitamin C', 'Vitamin D'],
+        id: 'p1_6',
+        question: 'Which blood type is considered the universal donor?',
+        options: ['A+', 'B+', 'AB+', 'O-'],
         correctAnswer: 3,
-        category: 'Medicine',
-        image: 'https://picsum.photos/seed/vitamind/400/300',
-        imageTitle: 'Vitamin D'
+        category: 'Hematology',
+        difficulty: 1,
+        keyPoint: 'O- blood has no A, B, or Rh antigens, making it compatible with all blood types in emergencies.',
+        reference: 'Clinical Hematology: Theory and Procedures, Harmening'
       },
       {
-        id: 'm2_5',
-        question: 'Which blood group is known as universal donor?',
-        options: ['A+', 'B-', 'O-', 'AB+'],
-        correctAnswer: 2,
-        category: 'Medicine',
-        image: 'https://picsum.photos/seed/blooddonor/400/300',
-        imageTitle: 'Universal Donor (O-)'
+        id: 'p1_7',
+        question: 'What is the abbreviation for "three times a day"?',
+        options: ['BID', 'TID', 'QID', 'QD'],
+        correctAnswer: 1,
+        category: 'Pharmacology',
+        difficulty: 1,
+        keyPoint: 'TID (ter in die) means three times daily. BID = twice daily, QID = four times daily, QD = once daily.',
+        reference: 'Medical Abbreviations: 32,000 Conveniences at the Expense of Communication'
+      },
+      {
+        id: 'p1_8',
+        question: 'What is the primary function of red blood cells?',
+        options: ['Fight infection', 'Oxygen transport', 'Blood clotting', 'Produce antibodies'],
+        correctAnswer: 1,
+        category: 'Physiology',
+        difficulty: 1,
+        keyPoint: 'Red blood cells (erythrocytes) contain hemoglobin which binds and transports oxygen to tissues.',
+        reference: 'Vander\'s Human Physiology'
+      },
+      {
+        id: 'p1_9',
+        question: 'What does "stat" mean in medical orders?',
+        options: ['Slowly', 'Immediately', 'Daily', 'As needed'],
+        correctAnswer: 1,
+        category: 'Clinical Practice',
+        difficulty: 1,
+        keyPoint: 'STAT (statim) means immediately - highest priority for urgent situations.',
+        reference: 'Medical Terminology for Health Professions, Ehrlich'
+      },
+      {
+        id: 'p1_10',
+        question: 'What is the medical term for high blood pressure?',
+        options: ['Hypotension', 'Hypertension', 'Normotension', 'Hyperpression'],
+        correctAnswer: 1,
+        category: 'Cardiology',
+        difficulty: 1,
+        keyPoint: 'Hypertension is defined as BP ≥140/90 mmHg. It is a major risk factor for cardiovascular disease.',
+        reference: 'Harrison\'s Principles of Internal Medicine'
       }
     ]
   },
-
   {
-    id: 'm3',
-    title: 'Biology & Human Body',
-    category: 'Biology',
+    id: 'practice2',
+    title: 'Human Anatomy Essentials',
+    category: 'Anatomy',
     difficulty: 'medium',
-    timeLimit: 15,
+    level: 2,
+    timeLimit: 12,
     questions: [
       {
-        id: 'm3_1',
-        question: 'What is the basic unit of life?',
-        options: ['Cell', 'Tissue', 'Organ', 'Organism'],
-        correctAnswer: 0,
-        category: 'Biology',
-        image: 'https://picsum.photos/seed/cell/400/300',
-        imageTitle: 'Human Cell'
-      },
-      {
-        id: 'm3_2',
-        question: 'Which molecule carries genetic information?',
-        options: ['RNA', 'DNA', 'Protein', 'Lipids'],
-        correctAnswer: 1,
-        category: 'Biology',
-        image: 'https://picsum.photos/seed/dna/400/300',
-        imageTitle: 'DNA Structure'
-      },
-      {
-        id: 'm3_3',
-        question: 'Which gas do humans exhale?',
-        options: ['Oxygen', 'Carbon dioxide', 'Nitrogen', 'Helium'],
-        correctAnswer: 1,
-        category: 'Biology',
-        image: 'https://picsum.photos/seed/co2/400/300',
-        imageTitle: 'Carbon Dioxide'
-      },
-      {
-        id: 'm3_4',
-        question: 'Which part of the brain controls balance?',
-        options: ['Cerebrum', 'Cerebellum', 'Medulla', 'Thalamus'],
-        correctAnswer: 1,
-        category: 'Biology',
-        image: 'https://picsum.photos/seed/brain/400/300',
-        imageTitle: 'Human Brain'
-      },
-      {
-        id: 'm3_5',
-        question: 'What is the largest organ in the human body?',
-        options: ['Heart', 'Liver', 'Skin', 'Brain'],
+        id: 'p2_1',
+        question: 'Which artery supplies blood to the heart muscle?',
+        options: ['Pulmonary artery', 'Aorta', 'Coronary artery', 'Carotid artery'],
         correctAnswer: 2,
-        category: 'Biology',
-        image: 'https://picsum.photos/seed/skin/400/300',
-        imageTitle: 'Human Skin'
+        category: 'Cardiology',
+        difficulty: 2,
+        keyPoint: 'Coronary arteries (right and left) supply oxygenated blood to the myocardium. Blockage causes myocardial infarction.',
+        reference: 'Gray\'s Anatomy for Students'
+      },
+      {
+        id: 'p2_2',
+        question: 'How many lobes does the right lung have?',
+        options: ['1', '2', '3', '4'],
+        correctAnswer: 2,
+        category: 'Respiratory',
+        difficulty: 2,
+        keyPoint: 'Right lung has 3 lobes (upper, middle, lower). Left lung has 2 lobes (upper, lower) to accommodate the heart.',
+        reference: 'Clinically Oriented Anatomy, Moore'
+      },
+      {
+        id: 'p2_3',
+        question: 'What is the largest gland in the human body?',
+        options: ['Pancreas', 'Thyroid', 'Liver', 'Pituitary'],
+        correctAnswer: 2,
+        category: 'Anatomy',
+        difficulty: 2,
+        keyPoint: 'The liver weighs approximately 1.5 kg and performs over 500 functions including metabolism, detoxification, and bile production.',
+        reference: 'Sobotta Atlas of Human Anatomy'
+      },
+      {
+        id: 'p2_4',
+        question: 'Which cranial nerve controls eye movement?',
+        options: ['Optic nerve (II)', 'Oculomotor nerve (III)', 'Olfactory nerve (I)', 'Trigeminal nerve (V)'],
+        correctAnswer: 1,
+        category: 'Neurology',
+        difficulty: 2,
+        keyPoint: 'CN III (oculomotor) controls most eye movements, pupil constriction, and eyelid elevation. Also CN IV and VI control eye movement.',
+        reference: 'Clinical Neuroanatomy Made Ridiculously Simple'
+      },
+      {
+        id: 'p2_5',
+        question: 'Where is insulin produced?',
+        options: ['Liver', 'Pancreas', 'Adrenal gland', 'Thyroid'],
+        correctAnswer: 1,
+        category: 'Endocrinology',
+        difficulty: 2,
+        keyPoint: 'Insulin is produced by beta cells in the islets of Langerhans in the pancreas. It regulates blood glucose levels.',
+        reference: 'Williams Textbook of Endocrinology'
+      },
+      {
+        id: 'p2_6',
+        question: 'What is the functional unit of the kidney?',
+        options: ['Glomerulus', 'Nephron', 'Ureter', 'Bowman\'s capsule'],
+        correctAnswer: 1,
+        category: 'Renal',
+        difficulty: 2,
+        keyPoint: 'Each kidney contains approximately 1 million nephrons, which filter blood and produce urine.',
+        reference: 'Renal Physiology, Koeppen & Stanton'
+      },
+      {
+        id: 'p2_7',
+        question: 'Which valve is located between the left atrium and left ventricle?',
+        options: ['Tricuspid valve', 'Pulmonary valve', 'Mitral valve', 'Aortic valve'],
+        correctAnswer: 2,
+        category: 'Cardiology',
+        difficulty: 2,
+        keyPoint: 'The mitral (bicuspid) valve prevents backflow from left ventricle to left atrium during systole.',
+        reference: 'Netter\'s Atlas of Human Anatomy'
+      },
+      {
+        id: 'p2_8',
+        question: 'What type of joint is the shoulder?',
+        options: ['Hinge joint', 'Ball and socket joint', 'Pivot joint', 'Saddle joint'],
+        correctAnswer: 1,
+        category: 'Orthopedics',
+        difficulty: 2,
+        keyPoint: 'The glenohumeral (shoulder) joint is a ball-and-socket joint allowing wide range of motion but prone to dislocation.',
+        reference: 'Clinical Anatomy by Regions, Snell'
+      },
+      {
+        id: 'p2_9',
+        question: 'Which part of the brain controls balance and coordination?',
+        options: ['Cerebrum', 'Cerebellum', 'Medulla oblongata', 'Hypothalamus'],
+        correctAnswer: 1,
+        category: 'Neurology',
+        difficulty: 2,
+        keyPoint: 'The cerebellum coordinates voluntary movements, maintains posture and balance. Damage causes ataxia.',
+        reference: 'Neuroanatomy Through Clinical Cases, Blumenfeld'
+      },
+      {
+        id: 'p2_10',
+        question: 'How many cervical vertebrae are in the human spine?',
+        options: ['5', '7', '12', '5'],
+        correctAnswer: 1,
+        category: 'Anatomy',
+        difficulty: 2,
+        keyPoint: 'There are 7 cervical, 12 thoracic, 5 lumbar vertebrae, plus sacrum and coccyx.',
+        reference: 'Grant\'s Atlas of Anatomy'
       }
     ]
   },
-
   {
-    id: 'm4',
-    title: 'Nursing & Health Care',
-    category: 'Nursing',
-    difficulty: 'hard',
+    id: 'practice3',
+    title: 'Medical Microbiology',
+    category: 'Microbiology',
+    difficulty: 'medium',
+    level: 3,
     timeLimit: 15,
     questions: [
       {
-        id: 'm4_1',
-        question: 'What is the normal pulse rate for adults?',
-        options: ['60-100 bpm', '30-50 bpm', '100-150 bpm', '40-90 bpm'],
-        correctAnswer: 0,
-        category: 'Nursing',
-        image: 'https://picsum.photos/seed/pulse/400/300',
-        imageTitle: 'Heart Pulse'
-      },
-      {
-        id: 'm4_2',
-        question: 'Which organ detoxifies harmful substances in the body?',
-        options: ['Liver', 'Heart', 'Kidney', 'Lungs'],
-        correctAnswer: 0,
-        category: 'Nursing',
-        image: 'https://picsum.photos/seed/liver/400/300',
-        imageTitle: 'Liver Detox'
-      },
-      {
-        id: 'm4_3',
-        question: 'Which hormone regulates blood sugar?',
-        options: ['Adrenaline', 'Insulin', 'Thyroxine', 'Estrogen'],
+        id: 'p3_1',
+        question: 'Which organism causes tuberculosis?',
+        options: ['Mycobacterium leprae', 'Mycobacterium tuberculosis', 'Streptococcus pneumoniae', 'Staphylococcus aureus'],
         correctAnswer: 1,
-        category: 'Nursing',
-        image: 'https://picsum.photos/seed/insulin/400/300',
-        imageTitle: 'Insulin'
+        category: 'Infectious Disease',
+        difficulty: 3,
+        keyPoint: 'M. tuberculosis is an acid-fast bacillus that primarily affects lungs. Diagnosed by Ziehl-Neelsen stain and culture.',
+        reference: 'Medical Microbiology, Murray'
       },
       {
-        id: 'm4_4',
-        question: 'CPR stands for?',
-        options: [
-          'Cardio Pressure Rescue',
-          'Cardio Pulmonary Resuscitation',
-          'Chest Pulse Restoration',
-          'Cellular Protein Response'
-        ],
-        correctAnswer: 1,
-        category: 'Nursing',
-        image: 'https://picsum.photos/seed/cpr/400/300',
-        imageTitle: 'CPR Technique'
+        id: 'p3_2',
+        question: 'What is the most common cause of community-acquired pneumonia?',
+        options: ['Haemophilus influenzae', 'Klebsiella pneumoniae', 'Streptococcus pneumoniae', 'Mycoplasma pneumoniae'],
+        correctAnswer: 2,
+        category: 'Respiratory',
+        difficulty: 3,
+        keyPoint: 'S. pneumoniae (pneumococcus) causes 30-50% of CAP. Vaccine available for high-risk groups.',
+        reference: 'Mandell, Douglas, and Bennett\'s Infectious Disease'
       },
       {
-        id: 'm4_5',
-        question: 'What instrument measures blood pressure?',
-        options: ['Thermometer', 'Sphygmomanometer', 'Stethoscope', 'ECG Machine'],
+        id: 'p3_3',
+        question: 'Which virus causes chickenpox?',
+        options: ['Herpes simplex virus', 'Varicella-zoster virus', 'Epstein-Barr virus', 'Cytomegalovirus'],
         correctAnswer: 1,
-        category: 'Nursing',
-        image: 'https://picsum.photos/seed/bp/400/300',
-        imageTitle: 'Blood Pressure Monitor'
+        category: 'Virology',
+        difficulty: 3,
+        keyPoint: 'VZV causes chickenpox (primary infection) and shingles (reactivation). Highly contagious via respiratory droplets.',
+        reference: 'Principles of Virology, Flint et al.'
+      },
+      {
+        id: 'p3_4',
+        question: 'What is the Gram stain result for E. coli?',
+        options: ['Gram-positive cocci', 'Gram-negative rod', 'Gram-positive rod', 'Gram-negative cocci'],
+        correctAnswer: 1,
+        category: 'Bacteriology',
+        difficulty: 3,
+        keyPoint: 'E. coli is a Gram-negative bacillus, common cause of UTI, gastroenteritis, and neonatal meningitis.',
+        reference: 'Jawetz, Melnick & Adelberg\'s Medical Microbiology'
+      },
+      {
+        id: 'p3_5',
+        question: 'Which antibiotic class inhibits bacterial cell wall synthesis?',
+        options: ['Tetracyclines', 'Macrolides', 'Beta-lactams', 'Aminoglycosides'],
+        correctAnswer: 2,
+        category: 'Pharmacology',
+        difficulty: 3,
+        keyPoint: 'Beta-lactams (penicillins, cephalosporins) inhibit peptidoglycan synthesis in bacterial cell walls.',
+        reference: 'Basic and Clinical Pharmacology, Katzung'
+      },
+      {
+        id: 'p3_6',
+        question: 'What disease is caused by Plasmodium species?',
+        options: ['Typhoid', 'Malaria', 'Dengue', 'Yellow fever'],
+        correctAnswer: 1,
+        category: 'Parasitology',
+        difficulty: 3,
+        keyPoint: 'Malaria is caused by Plasmodium parasites transmitted by Anopheles mosquitoes. Major global health burden.',
+        reference: 'Medical Parasitology, Markell & Voge'
+      },
+      {
+        id: 'p3_7',
+        question: 'Which organism is associated with gastric ulcers?',
+        options: ['E. coli', 'Helicobacter pylori', 'Salmonella typhi', 'Campylobacter jejuni'],
+        correctAnswer: 1,
+        category: 'Gastroenterology',
+        difficulty: 3,
+        keyPoint: 'H. pylori colonizes gastric mucosa causing chronic gastritis, peptic ulcers, and increased gastric cancer risk.',
+        reference: 'Sleisenger and Fordtran\'s GI Disease'
+      },
+      {
+        id: 'p3_8',
+        question: 'What is the incubation period of HIV before AIDS develops (untreated)?',
+        options: ['1-2 months', '6-12 months', '2-5 years', '8-10 years'],
+        correctAnswer: 3,
+        category: 'Virology',
+        difficulty: 3,
+        keyPoint: 'Without treatment, HIV typically progresses to AIDS in 8-10 years. HAART can prevent progression indefinitely.',
+        reference: 'The HIV Book, Hoffmann & Rockstroh'
+      },
+      {
+        id: 'p3_9',
+        question: 'Which fungus commonly causes oral thrush?',
+        options: ['Aspergillus fumigatus', 'Candida albicans', 'Cryptococcus neoformans', 'Histoplasma capsulatum'],
+        correctAnswer: 1,
+        category: 'Mycology',
+        difficulty: 3,
+        keyPoint: 'C. albicans is the most common cause of oral and vaginal candidiasis, especially in immunocompromised patients.',
+        reference: 'Clinical Mycology, Anaissie et al.'
+      },
+      {
+        id: 'p3_10',
+        question: 'What is the vector for Lyme disease?',
+        options: ['Mosquito', 'Tick', 'Flea', 'Sandfly'],
+        correctAnswer: 1,
+        category: 'Infectious Disease',
+        difficulty: 3,
+        keyPoint: 'Lyme disease is caused by Borrelia burgdorferi, transmitted by Ixodes ticks. Classic sign: erythema migrans rash.',
+        reference: 'Hunter\'s Tropical Medicine and Infectious Disease'
       }
     ]
   }

@@ -16,6 +16,7 @@ export const Navigation: React.FC<NavigationProps> = ({ currentPage, onNavigate 
     { id: 'home', label: 'Home', icon: Home },
     { id: 'history', label: 'History', icon: History },
     { id: 'profile', label: 'Profile', icon: User },
+    // {id:'fun', label:'Fun', icon:User}
   ];
 
   const handleNavigate = (page: string) => {

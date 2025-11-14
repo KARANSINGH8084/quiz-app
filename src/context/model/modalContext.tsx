@@ -1,5 +1,5 @@
 import { type FC, createContext, useContext, useEffect, useState } from 'react'
-import { CrossIcon } from 'lucide-react'
+import {XCircle } from 'lucide-react'
 
 import "./model.scss";
 
@@ -120,7 +120,7 @@ export const ModalProvider: FC<{ children?: any }> = ({ children }) => {
                                     //     alt={('closeModal')}
                                     // />
                                     <div onClick={clearModal}>
-                                        <CrossIcon className="w-5 h-5 ml-2" />
+                                        <XCircle className="w-6 h-6 cursor-pointer" />
                                     </div>
                                 )}
                             </h1>
@@ -133,7 +133,7 @@ export const ModalProvider: FC<{ children?: any }> = ({ children }) => {
                                 //     alt={('closeModal')}
                                 // />
                                 <div className='modal__card__withoutTitle__close' onClick={clearModal}>
-                                    <CrossIcon className="w-5 h-5 ml-2" />
+                                    <XCircle className="w-6 h-6 cursor-pointer" />
                                 </div>
                             )
                         )}
