@@ -9,8 +9,6 @@ import { QuizResult } from './components/QuizResult';
 import { QuizHistory } from './components/QuizHistory';
 import { Profile } from './components/Profile';
 import { Navigation } from './components/Navigation';
-import { ChallengeMode } from './components/ChallengeMode'; // ✅ NEW: Challenge Mode
-import { ChallengeLeaderboard } from './components/ChallengeLeaderboard'; // ✅ NEW: Challenge Leaderboard
 import { Dashboard } from './components/admin/Dashboard';
 import { UsersList } from './components/admin/UsersList';
 import { UserDetails } from './components/admin/UserDetails';
@@ -18,7 +16,7 @@ import { ManageQuestions } from './components/admin/ManageQuestions';
 import { AdminProfile } from './components/admin/AdminProfile';
 import { AdminNavbar } from './components/admin/AdminNavbar';
 import { quizzes } from './data/quizzes';
-import { medicalQuizzes, generateLevelBasedQuiz } from './data/medicalQuizzes';
+import { medicalQuizzes } from './data/medicalQuizzes'; // ✅ NEW: Import medical quizzes
 import { QuizResult as QuizResultType, Quiz } from './types';
 import { ModalContext, ModalProvider, useModalContext } from './context/model/modalContext';
 import { Toaster } from './components/ui/sonner'; // ✅ NEW: Toast notifications
@@ -39,7 +37,6 @@ function AppContent() {
   const [selectedQuizId, setSelectedQuizId] = useState<string | null>(null);
   const [quizResult, setQuizResult] = useState<QuizResultType | null>(null);
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
-    const [currentChallengeId, setCurrentChallengeId] = useState<string | null>(null); // ✅ NEW: Track current challenge
   const onSwitchToSignup = () => {
     modelContext.addModal(
       'Sign Up',
@@ -188,62 +185,15 @@ function AppContent() {
     setCurrentPage('quiz');
   };
 
-  // ✅ NEW: Handle starting a challenge quiz
-  const handleStartChallenge = (challengeId: string) => {
-    setCurrentChallengeId(challengeId);
-    
-    // Load challenge from localStorage
-    const savedChallenges = JSON.parse(localStorage.getItem('challenges') || '[]');
-    const challenge = savedChallenges.find((c: any) => c.id === challengeId);
-    
-    if (challenge) {
-      // Generate quiz for this challenge
-      const quiz = generateLevelBasedQuiz(challenge.level, challenge.numberOfQuestions);
-      if (quiz) {
-        localStorage.setItem('temp_challenge_quiz', JSON.stringify(quiz));
-        setSelectedQuizId('temp_challenge_quiz');
-        setCurrentPage('quiz');
-      }
-    }
-  };
-
   // Handle quiz completion
   const handleQuizComplete = (result: QuizResultType) => {
     setQuizResult(result);
-    
-    // ✅ NEW: Check if this is a challenge quiz
-    if (currentChallengeId) {
-      // Update challenge with user's result
-      const savedChallenges = JSON.parse(localStorage.getItem('challenges') || '[]');
-      const updatedChallenges = savedChallenges.map((c: any) => {
-        if (c.id === currentChallengeId) {
-          const updatedParticipants = c.participants.map((p: any) => {
-            if (p.userId === user?.id) {
-              return {
-                ...p,
-                score: result.score,
-                accuracy: result.percentage,
-                timeTaken: result.timeTaken,
-              };
-            }
-            return p;
-          });
-          return { ...c, participants: updatedParticipants, status: 'completed' };
-        }
-        return c;
-      });
-      localStorage.setItem('challenges', JSON.stringify(updatedChallenges));
-      
-      setCurrentPage('challenge-result');
-    } else {
-      setCurrentPage('result');
-    }
+    setCurrentPage('result');
   };
 
   // Handle quiz exit
   const handleQuizExit = () => {
     setSelectedQuizId(null);
-    setCurrentChallengeId(null);
     setCurrentPage('home');
   };
 
@@ -264,21 +214,7 @@ function AppContent() {
   const handleGoHome = () => {
     setQuizResult(null);
     setSelectedQuizId(null);
-    setCurrentChallengeId(null);
     setCurrentPage('home');
-  };
-
-  // ✅ NEW: Handle going to challenge mode
-  const handleGoToChallenge = () => {
-    setCurrentPage('challenge');
-  };
-
-  // ✅ NEW: Handle new challenge from leaderboard
-  const handleNewChallenge = () => {
-    setCurrentChallengeId(null);
-    setQuizResult(null);
-    setSelectedQuizId(null);
-    setCurrentPage('challenge');
   };
 
   // ✅ UPDATED: Get selected quiz from both sources and temp_quiz
@@ -288,13 +224,6 @@ function AppContent() {
       const tempQuizData = localStorage.getItem('temp_quiz');
       if (tempQuizData) {
         return JSON.parse(tempQuizData) as Quiz;
-      }
-    }
-    // ✅ NEW: Check temp_challenge_quiz
-    if (selectedQuizId === 'temp_challenge_quiz') {
-      const tempChallengeQuizData = localStorage.getItem('temp_challenge_quiz');
-      if (tempChallengeQuizData) {
-        return JSON.parse(tempChallengeQuizData) as Quiz;
       }
     }
     // Check medical quizzes first, then practice quizzes
@@ -329,27 +258,6 @@ function AppContent() {
         }
         return null;
 
-      // ✅ NEW: Challenge mode pages
-      case 'challenge':
-        return (
-          <ChallengeMode 
-            onBack={handleGoHome}
-            onStartChallenge={handleStartChallenge}
-          />
-        );
-
-      case 'challenge-result':
-        if (currentChallengeId) {
-          return (
-            <ChallengeLeaderboard 
-              challengeId={currentChallengeId}
-              onGoHome={handleGoHome}
-              onNewChallenge={handleNewChallenge}
-            />
-          );
-        }
-        return null;
-
       case 'history':
         return <QuizHistory onBack={handleGoHome} />;
 
@@ -364,7 +272,6 @@ function AppContent() {
           <Home
             onStartQuiz={handleStartQuiz}
             onViewHistory={() => setCurrentPage('history')}
-            onStartChallenge={handleGoToChallenge} // ✅ NEW: Pass challenge handler
           />
         );
     }
@@ -372,7 +279,7 @@ function AppContent() {
 
   return (
     <>
-      {currentPage !== 'quiz' && currentPage !== 'result' && currentPage !== 'challenge' && currentPage !== 'challenge-result' && (
+      {currentPage !== 'quiz' && currentPage !== 'result' && (
         <Navigation currentPage={currentPage} onNavigate={handleNavigate} />
       )}
       {renderPage()}

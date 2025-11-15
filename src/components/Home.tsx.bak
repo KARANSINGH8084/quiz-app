@@ -264,30 +264,23 @@ export const Home: React.FC<HomeProps> = ({ onStartQuiz, onViewHistory, onStartC
               )}
             </Card>
 
-            {/* Challenge Mode */}
-            <Card className="p-6 bg-gradient-to-br from-orange-500 to-red-500 text-white border-0 hover:shadow-xl transition-shadow">
+            {/* Challenge Mode (Coming Soon) */}
+            <Card className="p-6 bg-gradient-to-br from-orange-500 to-red-500 text-white border-0">
               <div className="flex items-center gap-4">
-                <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center animate-pulse">
+                <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center">
                   <Users className="w-8 h-8" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl mb-1 flex items-center gap-2">
-                    Challenge Mode 
-                    <Badge className="bg-green-500 text-white animate-pulse">NEW!</Badge>
-                  </h3>
+                  <h3 className="text-xl mb-1">Challenge Mode</h3>
                   <p className="text-sm opacity-90">Compete with other medical students in real-time!</p>
                 </div>
                 <Button
                   variant="outline"
                   className="bg-white text-orange-600 hover:bg-gray-100"
-                  onClick={() => {
-                    if (onStartChallenge) {
-                      toast.success('Starting Challenge Mode! 🎮');
-                      onStartChallenge();
-                    }
-                  }}
+                  onClick={() => toast.info('Challenge mode coming soon! 🎮')}
+                  disabled={!onStartChallenge}
                 >
-                  Enter Arena 🏆
+                  Coming Soon
                 </Button>
               </div>
             </Card>
