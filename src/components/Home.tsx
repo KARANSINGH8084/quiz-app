@@ -97,25 +97,23 @@ export const Home: React.FC<HomeProps> = ({ onStartQuiz, onViewHistory, onStartC
           <div>
             <div className="flex items-center gap-3 mb-2">
               <h1 className="text-4xl">Welcome back, {user.name}! </h1>
-              <div className="text-4xl">{AVATAR_EMOJIS[currentRank]}</div>
             </div>
             <p className="text-muted-foreground">Ready to level up your medical knowledge?</p>
           </div>
 
           {/* Quick XP Display */}
-          <Card className="p-4 bg-gradient-to-br from-purple-500 to-blue-500 text-white border-0 min-w-[200px]">
+          <div className="p-4 flex flex-col gap-2 rounded-lg bg-gradient-to-br from-purple-500 to-blue-500 text-white border-0 min-w-[200px]">
             <div className="flex items-center justify-between">
-              <span className="text-sm opacity-90">Rank: {currentRank}</span>
-              <Zap className="w-5 h-5" />
+              <span className="text-lg flex opacity-90">Rank : {currentRank}</span>
+              <Zap className="w-4 h-4" />
             </div>
-            <div className="text-2xl">{currentXP} XP</div>
             {nextRank && (
               <>
                 <Progress value={progressToNext} className="h-2 bg-white/20" />
-                <p className="text-xs opacity-90">{nextThreshold - currentXP} XP to {nextRank}</p>
+                <p className="text-sm opacity-90">{nextThreshold - currentXP} XP to {nextRank}</p>
               </>
             )}
-          </Card>
+          </div>
         </div>
 
         {/* Stats Grid */}
@@ -173,7 +171,7 @@ export const Home: React.FC<HomeProps> = ({ onStartQuiz, onViewHistory, onStartC
           {/* Level Selection */}
           <div className="lg:col-span-2 space-y-6">
             <Card className="p-6 bg-white border-0 shadow-sm">
-              <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center justify-between mb-1">
                 <div>
                   <h2 className="text-2xl mb-1">Choose Your Challenge</h2>
                   <p className="text-muted-foreground">Select a level and number of questions</p>
@@ -182,16 +180,16 @@ export const Home: React.FC<HomeProps> = ({ onStartQuiz, onViewHistory, onStartC
               </div>
 
               {/* Level Selection Grid */}
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-0">
                 {levels.map((level) => (
                   <button
                     key={level.level}
                     onClick={() => handleLevelSelect(level.level, level.unlocked)}
                     className={`p-4 rounded-xl border-2 transition-all relative ${level.unlocked
-                        ? selectedLevel === level.level
-                          ? `bg-gradient-to-br ${level.color} text-white border-transparent shadow-lg scale-105`
-                          : 'bg-green-100 text-green-700 hover:scale-105 border-gray-200 hover:border-gray-300'
-                        : 'bg-gray-100 opacity-60 cursor-not-allowed border-gray-200'
+                      ? selectedLevel === level.level
+                        ? `bg-gradient-to-br ${level.color} text-white border-transparent shadow-lg scale-105`
+                        : 'bg-green-100 text-green-700 hover:scale-105 border-gray-200 hover:border-gray-300'
+                      : 'bg-gray-100 opacity-60 cursor-not-allowed border-gray-200'
                       }
                     `}
                   >
@@ -272,7 +270,7 @@ export const Home: React.FC<HomeProps> = ({ onStartQuiz, onViewHistory, onStartC
                 </div>
                 <div className="flex-1">
                   <h3 className="text-xl mb-1 flex items-center gap-2">
-                    Challenge Mode 
+                    Challenge Mode
                     <Badge className="bg-green-500 text-white animate-pulse">NEW!</Badge>
                   </h3>
                   <p className="text-sm opacity-90">Compete with other medical students in real-time!</p>
@@ -340,7 +338,7 @@ export const Home: React.FC<HomeProps> = ({ onStartQuiz, onViewHistory, onStartC
           <div className="space-y-6">
             {/* Recent Activity */}
             <Card className="p-6 bg-white border-0 shadow-sm">
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-between">
                 <h3 className="text-xl">Recent Activity</h3>
                 <Trophy className="w-5 h-5 text-yellow-500" />
               </div>
@@ -387,7 +385,7 @@ export const Home: React.FC<HomeProps> = ({ onStartQuiz, onViewHistory, onStartC
 
             {/* Level Progress */}
             <Card className="p-6 bg-white border-0 shadow-sm">
-              <h3 className="text-xl mb-4">Level Progress</h3>
+              <h3 className="text-xl">Level Progress</h3>
               <div className="space-y-3">
                 {levels.map((level) => (
                   <div

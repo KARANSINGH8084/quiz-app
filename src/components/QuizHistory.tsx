@@ -40,10 +40,6 @@ export const QuizHistory: React.FC<QuizHistoryProps> = ({ onBack }) => {
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-green-50">
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="mb-8">
-          <Button variant="ghost" onClick={onBack} className="mb-4">
-            <ChevronLeft className="w-4 h-4 mr-2" />
-            Back to Home
-          </Button>
           <h1 className="text-4xl mb-2">Quiz History</h1>
           <p className="text-muted-foreground">Track your progress over time</p>
         </div>

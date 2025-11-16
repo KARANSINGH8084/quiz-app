@@ -10,7 +10,7 @@ export const Dashboard: React.FC = () => {
   const stats = useMemo(() => {
     const users = getAllUsers();
     const totalUsers = users.length;
-    
+
     // Calculate total quiz attempts across all users
     let totalAttempts = 0;
     let totalScores: number[] = [];
@@ -27,11 +27,11 @@ export const Dashboard: React.FC = () => {
       });
     });
 
-    const averageScore = totalScores.length > 0 
+    const averageScore = totalScores.length > 0
       ? Math.round(totalScores.reduce((a, b) => a + b, 0) / totalScores.length)
       : 0;
 
-    const bestScore = totalScores.length > 0 
+    const bestScore = totalScores.length > 0
       ? Math.max(...totalScores)
       : 0;
 
@@ -113,10 +113,10 @@ export const Dashboard: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-green-50">
+    <div className="bg-gradient-to-br from-purple-50 via-blue-50 to-green-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Welcome Section */}
-        <div className="mb-8">
+        <div className="mb-4">
           <h1 className="text-3xl mb-2">Admin Dashboard</h1>
           <p className="text-muted-foreground">
             Overview of your Quiz App statistics and user activity
@@ -129,14 +129,16 @@ export const Dashboard: React.FC = () => {
             const Icon = stat.icon;
             return (
               <Card key={index} className="border-0 shadow-md hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between mb-4">
+                <CardContent className="p-6 flex justify-between w-full">
+                  <div className="mb-4">
+                    <div className="text-3xl mb-1">{stat.value}</div>
+                    <p className="text-sm text-muted-foreground">{stat.title}</p>
+                  </div>
+                  <div>
                     <div className={`p-3 rounded-xl ${stat.bgColor}`}>
                       <Icon className={`w-6 h-6 ${stat.textColor}`} />
                     </div>
                   </div>
-                  <div className="text-3xl mb-1">{stat.value}</div>
-                  <p className="text-sm text-muted-foreground">{stat.title}</p>
                 </CardContent>
               </Card>
             );

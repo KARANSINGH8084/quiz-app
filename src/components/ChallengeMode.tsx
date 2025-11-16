@@ -240,7 +240,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({ onBack, onStartCha
           </Button>
 
           <Card className="p-8 bg-white border-0 shadow-lg">
-            <div className="text-center mb-8">
+            <div className="text-center">
               <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-400 to-blue-400 rounded-2xl mb-4">
                 <Plus className="w-8 h-8 text-white" />
               </div>
@@ -249,7 +249,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({ onBack, onStartCha
             </div>
 
             {/* Level Selection */}
-            <div className="mb-6">
+            <div className="mb-4">
               <label className="block text-sm font-medium mb-3">Select Level</label>
               <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
                 {levels.map((level) => (
@@ -270,7 +270,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({ onBack, onStartCha
             </div>
 
             {/* Question Count */}
-            <div className="mb-8">
+            <div className="mb-4">
               <label className="block text-sm font-medium mb-3">Number of Questions: {questionCount}</label>
               <input
                 type="range"
@@ -392,7 +392,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({ onBack, onStartCha
           </Button>
 
           <Card className="p-8 bg-white border-0 shadow-lg mb-6">
-            <div className="text-center mb-8">
+            <div className="text-center mb-3">
               <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-orange-400 to-red-400 rounded-2xl mb-4 animate-pulse">
                 <Users className="w-8 h-8 text-white" />
               </div>
@@ -401,7 +401,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({ onBack, onStartCha
             </div>
 
             {/* Challenge Code */}
-            <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl p-6 mb-6 border-2 border-purple-200">
+            <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl p-6 mb-2 border-2 border-purple-200">
               <p className="text-sm text-muted-foreground text-center mb-2">Share this code:</p>
               <div className="flex items-center justify-center gap-3">
                 <div className="text-4xl font-bold tracking-widest">{(currentChallenge as any).code || challengeCode}</div>
@@ -416,7 +416,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({ onBack, onStartCha
             </div>
 
             {/* Challenge Details */}
-            <div className="grid grid-cols-2 gap-4 mb-6">
+            <div className="grid grid-cols-2 gap-4 mb-2">
               <div className="bg-gray-50 rounded-lg p-4 text-center">
                 <Target className="w-6 h-6 mx-auto mb-2 text-purple-500" />
                 <p className="text-sm text-muted-foreground">Level</p>
@@ -430,7 +430,7 @@ export const ChallengeMode: React.FC<ChallengeModeProps> = ({ onBack, onStartCha
             </div>
 
             {/* Participants */}
-            <div className="mb-6">
+            <div className="mb-2">
               <h3 className="text-lg mb-3 flex items-center gap-2">
                 <Users className="w-5 h-5" />
                 Participants ({currentChallenge.participants.length})

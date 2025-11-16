@@ -149,7 +149,7 @@ export const QuizPage: React.FC<QuizPageProps> = ({ quiz, onComplete, onExit }) 
                 <Clock className="w-5 h-5" />
                 <span className="font-mono">{formatTime(timeLeft)}</span>
               </div>
-              <Button onClick={onExit} variant="outline" size="sm">
+              <Button onClick={onExit} variant="outline" size="lg">
                 Exit
               </Button>
             </div>
@@ -167,7 +167,7 @@ export const QuizPage: React.FC<QuizPageProps> = ({ quiz, onComplete, onExit }) 
 
         {/* Question Card */}
         <Card className="p-8 bg-white border-0 shadow-lg mb-6">
-          <div className="mb-8">
+          <div className="mb-2">
             <div className="flex items-start gap-3 mb-6">
               <div className="w-10 h-10 bg-gradient-to-br from-purple-400 to-blue-400 rounded-xl flex items-center justify-center flex-shrink-0">
                 <span className="text-white">{currentQuestion + 1}</span>
@@ -178,7 +178,7 @@ export const QuizPage: React.FC<QuizPageProps> = ({ quiz, onComplete, onExit }) 
             </div>
 
             {/* Options */}
-            <div className="space-y-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {question.options.map((option, index) => {
                 const optionLetter = String.fromCharCode(65 + index);
                 const isSelected = selectedAnswer === index;

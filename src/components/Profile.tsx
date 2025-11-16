@@ -207,7 +207,7 @@ export const Profile: React.FC = () => {
 
             {/* ✅ NEW: Rank Progress Card */}
             <Card className="p-6 bg-gradient-to-br from-purple-500 to-blue-500 text-white border-0">
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-between ">
                 <div>
                   <h3 className="text-lg mb-1">Current Rank: {currentRank}</h3>
                   <p className="text-sm opacity-90">
@@ -219,7 +219,7 @@ export const Profile: React.FC = () => {
               {nextRank && (
                 <>
                   <Progress value={progressToNext} className="h-3 bg-white/20" />
-                  <div className="flex justify-between mt-2 text-sm opacity-90">
+                  <div className="flex justify-between text-sm opacity-90">
                     <span>{currentXP} XP</span>
                     <span>{nextThreshold} XP</span>
                   </div>
@@ -232,7 +232,7 @@ export const Profile: React.FC = () => {
           <div className="space-y-6">
             {/* ✅ UPDATED: Enhanced Stats */}
             <Card className="p-6 bg-white border-0 shadow-sm">
-              <h3 className="text-xl mb-6">Statistics</h3>
+              <h3 className="text-xl">Statistics</h3>
               <div className="space-y-4">
                 <div className="flex items-center justify-between p-3 bg-purple-50 rounded-xl">
                   <div className="flex items-center gap-3">
@@ -299,7 +299,7 @@ export const Profile: React.FC = () => {
 
             {/* ✅ NEW: Rank Milestones */}
             <Card className="p-6 bg-white border-0 shadow-sm">
-              <h3 className="text-xl mb-4">Rank Journey</h3>
+              <h3 className="text-xl">Rank Journey</h3>
               <div className="space-y-3">
                 {ranks.map((rank, index) => {
                   const unlocked = currentRankIndex >= index;
