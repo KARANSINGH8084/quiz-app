@@ -9,6 +9,7 @@ import { Badge } from './ui/badge';
 import { Progress } from './ui/progress';
 import { useAuth } from '../context/AuthContext';
 import { XP_THRESHOLDS, AVATAR_EMOJIS, Rank } from '../types';
+import { userLevel } from '../helpers/images';
 
 export const Profile: React.FC = () => {
   const { user, updateProfile, updateAvatar } = useAuth();
@@ -46,11 +47,12 @@ export const Profile: React.FC = () => {
   if (!user) return null;
 
   const currentXP = user.xp || 0;
-  const currentRank = user.rank || 'Snake';
   const currentLevel = user.level || 1;
+  // ensure currentRank is treated as a valid key of XP_THRESHOLDS
+  const currentRank = (user.rank || 'Latrophon') as keyof typeof XP_THRESHOLDS;
 
   // Calculate progress to next rank
-  const ranks: Rank[] = ['Snake', 'Lion', 'Prince', 'King'];
+  const ranks: (keyof typeof XP_THRESHOLDS)[] = ['Latrophon', 'Latromachos', 'Hygeionis', 'ArchLatros'];
   const currentRankIndex = ranks.indexOf(currentRank);
   const nextRank = currentRankIndex < ranks.length - 1 ? ranks[currentRankIndex + 1] : null;
   const currentThreshold = XP_THRESHOLDS[currentRank];
@@ -58,16 +60,11 @@ export const Profile: React.FC = () => {
   const progressToNext = nextRank ? ((currentXP - currentThreshold) / (nextThreshold - currentThreshold)) * 100 : 100;
 
   // Available avatars based on rank
-  const availableAvatars = [
-    { emoji: '🐍', rank: 'Snake', unlocked: currentRankIndex >= 0 },
-    { emoji: '🦁', rank: 'Lion', unlocked: currentRankIndex >= 1 },
-    { emoji: '👑', rank: 'Prince', unlocked: currentRankIndex >= 2 },
-    { emoji: '🏆', rank: 'King', unlocked: currentRankIndex >= 3 },
-    // Additional unlocked avatars
-    { emoji: '⚕️', rank: 'Snake', unlocked: currentRankIndex >= 0 },
-    { emoji: '🩺', rank: 'Lion', unlocked: currentRankIndex >= 1 },
-    { emoji: '💊', rank: 'Prince', unlocked: currentRankIndex >= 2 },
-    { emoji: '🔬', rank: 'King', unlocked: currentRankIndex >= 3 },
+  const availableAvatars: { emoji: string; rank: keyof typeof AVATAR_EMOJIS; unlocked: boolean }[] = [
+    { emoji: userLevel.latrophon, rank: 'Latrophon', unlocked: currentRankIndex >= 0 },
+    { emoji: userLevel.latromachos, rank: 'Latromachos', unlocked: currentRankIndex >= 1 },
+    { emoji: userLevel.hygeionis, rank: 'Hygeionis', unlocked: currentRankIndex >= 2 },
+    { emoji: userLevel.archlatros, rank: 'ArchLatros', unlocked: currentRankIndex >= 3 }
   ];
 
   return (
@@ -87,7 +84,7 @@ export const Profile: React.FC = () => {
                       onClick={() => setShowAvatarPicker(!showAvatarPicker)}
                       className="w-24 h-24 bg-gradient-to-br from-purple-400 to-blue-400 rounded-full flex items-center justify-center text-5xl hover:scale-105 transition-transform cursor-pointer"
                     >
-                      {user.selectedAvatar || '🐍'}
+                      <img className='rounded-full ' src={user.selectedAvatar || '🐍'} alt="User Avatar" />
                     </button>
                     <Badge className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-gradient-to-r from-yellow-400 to-orange-400 text-white border-0">
                       {currentRank}
@@ -132,7 +129,7 @@ export const Profile: React.FC = () => {
                         } ${user.selectedAvatar === avatar.emoji ? 'ring-2 ring-purple-500' : ''}`}
                         title={avatar.unlocked ? `Unlocked at ${avatar.rank}` : `Unlock at ${avatar.rank}`}
                       >
-                        {avatar.unlocked ? avatar.emoji : '🔒'}
+                        {avatar.unlocked ? <img className='rounded-xl' src={AVATAR_EMOJIS[avatar.rank as keyof typeof AVATAR_EMOJIS]} alt={avatar.rank} height={50} width={80} /> : '🔒'} 
                       </button>
                     ))}
                   </div>
@@ -214,7 +211,8 @@ export const Profile: React.FC = () => {
                     {nextRank ? `${nextThreshold - currentXP} XP to ${nextRank}` : 'Max Rank Achieved!'}
                   </p>
                 </div>
-                <div className="text-5xl">{AVATAR_EMOJIS[currentRank]}</div>
+                {/* <div className="text-5xl">{AVATAR_EMOJIS[currentRank]}</div> */}
+                <img className='rounded-xl' src={AVATAR_EMOJIS[currentRank]} alt={currentRank} height={50} width={80} />
               </div>
               {nextRank && (
                 <>
@@ -310,8 +308,8 @@ export const Profile: React.FC = () => {
                         unlocked ? 'bg-gradient-to-r from-yellow-50 to-orange-50' : 'bg-gray-50'
                       }`}
                     >
-                      <div className={`text-3xl ${!unlocked && 'opacity-30'}`}>
-                        {AVATAR_EMOJIS[rank]}
+                      <div className={`text-3xl rounded-xl ${!unlocked && 'opacity-30'}`}>
+                        <img className='rounded-xl' src={AVATAR_EMOJIS[rank]} height={50} width={80} alt={rank} />
                       </div>
                       <div className="flex-1">
                         <p className={unlocked ? '' : 'text-muted-foreground'}>{rank}</p>

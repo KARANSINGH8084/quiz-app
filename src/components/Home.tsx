@@ -11,6 +11,7 @@ import { quizzes } from '../data/quizzes';
 import { generateLevelBasedQuiz } from '../data/medicalQuizzes';
 import { AVATAR_EMOJIS, XP_THRESHOLDS } from '../types';
 import { toast } from 'sonner';
+import { levelImages } from '../helpers/images';
 
 interface HomeProps {
   onStartQuiz: (quizId: string) => void;
@@ -27,9 +28,9 @@ export const Home: React.FC<HomeProps> = ({ onStartQuiz, onViewHistory, onStartC
   const recentQuizzes = quizHistory.slice(0, 3);
   console.log(quizzes, ' quizzes')
   const currentXP = user?.xp || 0;
-  const currentRank = user?.rank || 'Snake';
+  const currentRank = user?.rank || 'Latrophon';
   const currentLevel = user?.level || 1;
-  const ranks = ['Snake', 'Lion', 'Prince', 'King'] as const;
+  const ranks = ['Latrophon', 'Latromachos', 'Hygeionis', 'ArchLatros'] as const;
   const currentRankIndex = ranks.indexOf(currentRank);
   const nextRank = currentRankIndex < ranks.length - 1 ? ranks[currentRankIndex + 1] : null;
   const currentThreshold = XP_THRESHOLDS[currentRank];
@@ -38,12 +39,12 @@ export const Home: React.FC<HomeProps> = ({ onStartQuiz, onViewHistory, onStartC
 
   // ✅ UPDATED: Level data with unlocking logic
   const levels = [
-    { level: 1, name: 'Beginner', difficulty: 'Easy', color: 'from-green-400 to-green-500', unlocked: true },
-    { level: 2, name: 'Novice', difficulty: 'Easy-Medium', color: 'from-blue-400 to-blue-500', unlocked: currentLevel >= 2 },
-    { level: 3, name: 'Intermediate', difficulty: 'Medium', color: 'from-purple-400 to-purple-500', unlocked: currentLevel >= 3 },
-    { level: 4, name: 'Advanced', difficulty: 'Medium-Hard', color: 'from-orange-400 to-orange-500', unlocked: currentLevel >= 4 },
-    { level: 5, name: 'Expert', difficulty: 'Hard', color: 'from-red-400 to-red-500', unlocked: currentLevel >= 5 },
-    { level: 6, name: 'Master', difficulty: 'Very Hard', color: 'from-pink-400 to-pink-500', unlocked: currentLevel >= 6 },
+    { level: 1, name: 'Beginner', difficulty: 'Easy', color: 'from-green-400 to-green-500', unlocked: true, image: levelImages.level1 },
+    { level: 2, name: 'Novice', difficulty: 'Easy-Medium', color: 'from-blue-400 to-blue-500', unlocked: currentLevel >= 2, image: levelImages.level2 },
+    { level: 3, name: 'Intermediate', difficulty: 'Medium', color: 'from-purple-400 to-purple-500', unlocked: currentLevel >= 3, image: levelImages.level3 },
+    { level: 4, name: 'Advanced', difficulty: 'Medium-Hard', color: 'from-orange-400 to-orange-500', unlocked: currentLevel >= 4, image: levelImages.level4 },
+    { level: 5, name: 'Expert', difficulty: 'Hard', color: 'from-red-400 to-red-500', unlocked: currentLevel >= 5, image: levelImages.level5 },
+    { level: 6, name: 'Master', difficulty: 'Very Hard', color: 'from-pink-400 to-pink-500', unlocked: currentLevel >= 6, image: levelImages.level6 },
   ];
 
   const getBadgeColor = (difficulty: string) => {
@@ -185,10 +186,11 @@ export const Home: React.FC<HomeProps> = ({ onStartQuiz, onViewHistory, onStartC
                   <button
                     key={level.level}
                     onClick={() => handleLevelSelect(level.level, level.unlocked)}
+                    style={{ backgroundImage: `url(${level.image})` , backgroundSize: 'contain', backgroundPosition: 'center'}}
                     className={`p-4 rounded-xl border-2 transition-all relative ${level.unlocked
                       ? selectedLevel === level.level
                         ? `bg-gradient-to-br ${level.color} text-white border-transparent shadow-lg scale-105`
-                        : 'bg-green-100 text-green-700 hover:scale-105 border-gray-200 hover:border-gray-300'
+                        : `text-green-700 hover:scale-105 border-gray-200 hover:border-gray-300`
                       : 'bg-gray-100 opacity-60 cursor-not-allowed border-gray-200'
                       }
                     `}
@@ -208,6 +210,7 @@ export const Home: React.FC<HomeProps> = ({ onStartQuiz, onViewHistory, onStartC
                       <p className={`text-xs ${selectedLevel === level.level ? 'text-white/90' : 'text-muted-foreground'}`}>
                         {level.difficulty}
                       </p>
+                      {/* <img src={level.image} alt={`Level ${level.level}`} className="mx-auto mb-2" /> */}
                       {!level.unlocked && (
                         <p className="text-xs text-gray-500 mt-1">
                           {((level.level - 1) * 200)} XP needed

@@ -1,3 +1,5 @@
+import { userLevel } from "../helpers/images";
+
 export interface User {
   id: string;
   name: string;
@@ -44,7 +46,7 @@ export interface QuizResult {
 
 // ✅ UPDATED: Enhanced with gamification features
 
-export type Rank = 'Snake' | 'Lion' | 'Prince' | 'King';
+export type Rank = 'Latrophon' | 'Latromachos' | 'Hygeionis' | 'ArchLatros';
 export type ConfidenceLevel = 'know' | 'not-sure' | 'dont-know';
 export type QuestionDifficulty = 1 | 2 | 3 | 4 | 5 | 6;
 
@@ -145,17 +147,17 @@ export interface ChallengeParticipant {
 
 // ✅ NEW: XP and Rank progression
 export const XP_THRESHOLDS = {
-  Snake: 0,
-  Lion: 500,
-  Prince: 2000,
-  King: 5000,
+  Latrophon: 0,
+  Latromachos: 500,
+  Hygeionis: 2000,
+  ArchLatros: 5000,
 };
 
 export const AVATAR_EMOJIS = {
-  Snake: '🐍',
-  Lion: '🦁',
-  Prince: '👑',
-  King: '🏆',
+  Latrophon: userLevel.latrophon,
+  Latromachos: userLevel.latromachos,
+  Hygeionis: userLevel.hygeionis,
+  ArchLatros: userLevel.archlatros,
 };
 
-export const RANK_NAMES = ['Snake', 'Lion', 'Prince', 'King'] as const;
+export const RANK_NAMES = ['Latrophon', 'Latromachos', 'Hygeionis', 'ArchLatros'] as const;
